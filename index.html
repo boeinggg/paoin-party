@@ -152,6 +152,18 @@
                 text-align: center;
                 box-shadow: var(--shadow-sm);
             }
+            .stat.clickable {
+                cursor: pointer;
+                transition:
+                    transform 0.2s ease,
+                    box-shadow 0.2s ease,
+                    border-color 0.2s ease;
+            }
+            .stat.clickable:hover {
+                transform: translateY(-2px);
+                box-shadow: var(--shadow-md);
+                border-color: var(--accent-glow);
+            }
             .stat-icon {
                 font-size: 20px;
                 margin-bottom: 2px;
@@ -256,9 +268,16 @@
                 overflow-y: hidden;
                 padding-bottom: 14px;
             }
+            .tree-stage {
+                position: relative;
+                display: inline-block;
+                min-width: 100%;
+                width: max-content;
+            }
             .tree-lines {
                 position: absolute;
-                inset: 0;
+                top: 0;
+                left: 0;
                 pointer-events: none;
                 z-index: 4;
                 overflow: visible;
@@ -960,6 +979,111 @@
                 color: var(--text-soft);
                 text-align: center;
             }
+            .donation-summary {
+                display: grid;
+                gap: 10px;
+                margin-top: 4px;
+            }
+            .donation-summary-item {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 12px;
+                padding: 14px 16px;
+                border-radius: 16px;
+                border: 1px solid var(--border);
+                background: rgba(255, 253, 246, 0.9);
+            }
+            .donation-summary-item.cash {
+                background: linear-gradient(180deg, #f5f9e8 0%, #e9f0ce 100%);
+            }
+            .donation-summary-item.transfer {
+                background: linear-gradient(180deg, #fff7e3 0%, #f7e1b8 100%);
+            }
+            .donation-summary-label {
+                display: flex;
+                flex-direction: column;
+                gap: 2px;
+                text-align: left;
+            }
+            .donation-summary-label strong {
+                font-size: 15px;
+                color: var(--text);
+            }
+            .donation-summary-label span {
+                font-size: 12px;
+                color: var(--text-soft);
+            }
+            .donation-summary-value {
+                font-family: "Playfair Display", serif;
+                font-size: 24px;
+                font-weight: 700;
+                color: var(--warm);
+                white-space: nowrap;
+            }
+            .donation-summary-total {
+                padding-top: 12px;
+                border-top: 1px dashed var(--border);
+                font-size: 14px;
+                color: var(--text-soft);
+                display: flex;
+                justify-content: space-between;
+                gap: 12px;
+            }
+            .donation-summary-total strong {
+                color: var(--primary);
+                font-size: 18px;
+            }
+            .attend-summary {
+                display: grid;
+                gap: 10px;
+            }
+            .attend-summary-overall {
+                padding: 14px 16px;
+                border-radius: 16px;
+                border: 1px solid var(--border);
+                background: linear-gradient(180deg, #f3f9e2 0%, #e5efc8 100%);
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                gap: 12px;
+            }
+            .attend-summary-overall span {
+                color: var(--text-soft);
+                font-size: 13px;
+            }
+            .attend-summary-overall strong {
+                color: var(--primary);
+                font-family: "Playfair Display", serif;
+                font-size: 24px;
+            }
+            .attend-summary-list {
+                display: grid;
+                gap: 8px;
+                max-height: min(52vh, 420px);
+                overflow-y: auto;
+                padding-right: 2px;
+            }
+            .attend-summary-item {
+                padding: 12px 14px;
+                border-radius: 14px;
+                border: 1px solid var(--border);
+                background: rgba(255, 253, 246, 0.9);
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                gap: 12px;
+            }
+            .attend-summary-item .line {
+                font-weight: 600;
+                color: var(--text);
+            }
+            .attend-summary-item .ratio {
+                color: var(--warm);
+                font-family: "Playfair Display", serif;
+                font-size: 20px;
+                white-space: nowrap;
+            }
             .modal-actions {
                 display: flex;
                 gap: 8px;
@@ -1104,15 +1228,27 @@
                     <div class="stat-value" id="statTotal">–</div>
                     <div class="stat-label">สมาชิกทั้งหมด</div>
                 </div>
-                <div class="stat">
+                <div
+                    class="stat clickable"
+                    role="button"
+                    tabindex="0"
+                    onclick="openAttendSummary()"
+                    onkeydown="handleAttendCardKeydown(event)"
+                >
                     <div class="stat-icon">✨</div>
                     <div class="stat-value" id="statAttend">–</div>
-                    <div class="stat-label">มาร่วมงาน</div>
+                    <div class="stat-label">แตะดูสรุปทุกสาย</div>
                 </div>
-                <div class="stat">
+                <div
+                    class="stat clickable"
+                    role="button"
+                    tabindex="0"
+                    onclick="openDonationSummary()"
+                    onkeydown="handleDonationCardKeydown(event)"
+                >
                     <div class="stat-icon">💰</div>
                     <div class="stat-value" id="statDonation">–</div>
-                    <div class="stat-label">ยอดบริจาค (บาท)</div>
+                    <div class="stat-label">แตะดูเงินสด/เงินโอน</div>
                 </div>
             </div>
 
@@ -1217,8 +1353,12 @@
                     <div class="field" style="margin-bottom: 10px">
                         <label>เลือกวิธีการบริจาค</label>
                         <div class="donate-choice-grid">
-                            <button class="btn-secondary donate-choice-btn" type="button" onclick="selectDonateMethod('cash')">💵 เงินสด</button>
-                            <button class="btn-secondary donate-choice-btn" type="button" onclick="selectDonateMethod('transfer')">📱 โอนเงิน</button>
+                            <button class="btn-secondary donate-choice-btn" type="button" onclick="selectDonateMethod('cash')">
+                                💵 เงินสด
+                            </button>
+                            <button class="btn-secondary donate-choice-btn" type="button" onclick="selectDonateMethod('transfer')">
+                                📱 โอนเงิน
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -1238,6 +1378,51 @@
                 <div class="modal-actions">
                     <button class="btn-secondary" onclick="closeDonate()">ยกเลิก</button>
                     <button class="btn-primary" id="donateSubmitBtn" onclick="submitDonate()" style="display: none">บันทึก</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-overlay" id="donationSummaryModal">
+            <div class="modal">
+                <h3>💰 สรุปยอดบริจาค</h3>
+                <div class="donation-summary">
+                    <div class="donation-summary-item cash">
+                        <div class="donation-summary-label">
+                            <strong>เงินสด</strong>
+                            <span>ยอดบริจาคที่บันทึกเป็นเงินสด</span>
+                        </div>
+                        <div class="donation-summary-value" id="cashDonationTotal">0</div>
+                    </div>
+                    <div class="donation-summary-item transfer">
+                        <div class="donation-summary-label">
+                            <strong>เงินโอน</strong>
+                            <span>ยอดบริจาคที่บันทึกเป็นเงินโอน</span>
+                        </div>
+                        <div class="donation-summary-value" id="transferDonationTotal">0</div>
+                    </div>
+                    <div class="donation-summary-total">
+                        <span>รวมทั้งหมด</span>
+                        <strong id="allDonationTotal">0</strong>
+                    </div>
+                </div>
+                <div class="modal-actions">
+                    <button class="btn-primary" onclick="closeDonationSummary()">ปิด</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-overlay" id="attendSummaryModal">
+            <div class="modal">
+                <h3>✨ สรุปผู้มาร่วมงานทุกสาย</h3>
+                <div class="attend-summary">
+                    <div class="attend-summary-overall">
+                        <span>รวมทั้งหมดทุกสาย</span>
+                        <strong id="attendOverallRatio">0/0</strong>
+                    </div>
+                    <div class="attend-summary-list" id="attendSummaryList"></div>
+                </div>
+                <div class="modal-actions">
+                    <button class="btn-primary" onclick="closeAttendSummary()">ปิด</button>
                 </div>
             </div>
         </div>
@@ -1318,8 +1503,10 @@
 
         <script>
             const API_URL = "https://sheetdb.io/api/v1/07juhey77n6ty";
-            const DONATE_QR_SHEET_EXPORT_URL = "https://docs.google.com/spreadsheets/d/1jPzWbq_MCTOqo1O6GTBtWUtu1SR8qWjUQmBz4A-1Teo/export?format=csv&gid=1443195252";
-            const DONATE_QR_GVIS_URL = "https://docs.google.com/spreadsheets/d/1jPzWbq_MCTOqo1O6GTBtWUtu1SR8qWjUQmBz4A-1Teo/gviz/tq?gid=1443195252&tqx=out:json&range=A1";
+            const DONATE_QR_SHEET_EXPORT_URL =
+                "https://docs.google.com/spreadsheets/d/1jPzWbq_MCTOqo1O6GTBtWUtu1SR8qWjUQmBz4A-1Teo/export?format=csv&gid=1443195252";
+            const DONATE_QR_GVIS_URL =
+                "https://docs.google.com/spreadsheets/d/1jPzWbq_MCTOqo1O6GTBtWUtu1SR8qWjUQmBz4A-1Teo/gviz/tq?gid=1443195252&tqx=out:json&range=A1";
             const DONATE_QR_IMAGE_URL = window.DONATE_QR_IMAGE_URL || localStorage.getItem("donate_qr_image_url") || "";
             const DONATE_QR_IMAGE_BASE64 = window.DONATE_QR_IMAGE_BASE64 || localStorage.getItem("donate_qr_image_base64") || "";
             let donateQrSourcePromise = null;
@@ -1343,6 +1530,9 @@
             let addMemberMode = "manual";
             let addMemberAnchorId = null;
             let donateMethod = "";
+            let lastTreeIndexes = null;
+            let lastTreeVisibleData = null;
+            let treeLinkRedrawFrame = null;
 
             // โทนเขียว/ทอง/น้ำตาล
             const WHEEL_PALETTE = ["#e3ecd0", "#cfe0a8", "#faecc4", "#f3d684", "#f3e3cc", "#e0c7a0", "#d6e9b8", "#fbe2a3"];
@@ -1477,6 +1667,127 @@
                 document.getElementById("statAttend").textContent = attend;
                 document.getElementById("statDonation").textContent = donation.toLocaleString();
                 document.getElementById("treeBadge").textContent = `${attend}/${total} มาร่วมงาน`;
+                updateDonationSummary();
+            }
+
+            function getDonationSummary() {
+                const visibleData = getVisibleData();
+                return visibleData.reduce(
+                    (acc, person) => {
+                        const amount = Number(person.donation_amount) || 0;
+                        if (amount <= 0) return acc;
+                        if (person.donation_method === "transfer") {
+                            acc.transfer += amount;
+                        } else {
+                            acc.cash += amount;
+                        }
+                        acc.total += amount;
+                        return acc;
+                    },
+                    { cash: 0, transfer: 0, total: 0 },
+                );
+            }
+
+            function updateDonationSummary() {
+                const summary = getDonationSummary();
+                const cashEl = document.getElementById("cashDonationTotal");
+                const transferEl = document.getElementById("transferDonationTotal");
+                const totalEl = document.getElementById("allDonationTotal");
+                if (cashEl) cashEl.textContent = summary.cash.toLocaleString();
+                if (transferEl) transferEl.textContent = summary.transfer.toLocaleString();
+                if (totalEl) totalEl.textContent = summary.total.toLocaleString();
+            }
+
+            function openDonationSummary() {
+                updateDonationSummary();
+                document.getElementById("donationSummaryModal")?.classList.add("show");
+            }
+
+            function closeDonationSummary() {
+                document.getElementById("donationSummaryModal")?.classList.remove("show");
+            }
+
+            function handleDonationCardKeydown(event) {
+                if (event.key === "Enter" || event.key === " ") {
+                    event.preventDefault();
+                    openDonationSummary();
+                }
+            }
+
+            function getAllFamilyLineValues() {
+                const lines = Array.from(new Set(data.map((p) => String(p.family_line ?? "").trim())));
+                return lines.sort((a, b) => {
+                    const isEmptyA = a === "";
+                    const isEmptyB = b === "";
+                    if (isEmptyA && !isEmptyB) return 1;
+                    if (!isEmptyA && isEmptyB) return -1;
+                    const na = Number(a);
+                    const nb = Number(b);
+                    if (!Number.isNaN(na) && !Number.isNaN(nb)) return na - nb;
+                    return a.localeCompare(b, "th");
+                });
+            }
+
+            function getAttendSummaryAllLines() {
+                const summary = {
+                    overallAttend: 0,
+                    overallTotal: data.length,
+                    lines: [],
+                };
+
+                const lineValues = getAllFamilyLineValues();
+                lineValues.forEach((lineValue) => {
+                    const group = data.filter((p) => String(p.family_line ?? "").trim() === lineValue);
+                    const total = group.length;
+                    const attend = group.filter((p) => p.attend).length;
+                    summary.overallAttend += attend;
+                    summary.lines.push({
+                        lineValue,
+                        label: lineValue ? `สาย ${lineValue}` : "ไม่ระบุสาย",
+                        total,
+                        attend,
+                    });
+                });
+
+                return summary;
+            }
+
+            function updateAttendSummary() {
+                const ratioEl = document.getElementById("attendOverallRatio");
+                const listEl = document.getElementById("attendSummaryList");
+                if (!ratioEl || !listEl) return;
+
+                const summary = getAttendSummaryAllLines();
+                ratioEl.textContent = `${summary.overallAttend}/${summary.overallTotal}`;
+
+                if (summary.lines.length === 0) {
+                    listEl.innerHTML =
+                        '<div class="attend-summary-item"><span class="line">ยังไม่มีข้อมูลสายครอบครัว</span><span class="ratio">0/0</span></div>';
+                    return;
+                }
+
+                listEl.innerHTML = summary.lines
+                    .map(
+                        (item) =>
+                            `<div class="attend-summary-item"><span class="line">${item.label}</span><span class="ratio">${item.attend}/${item.total}</span></div>`,
+                    )
+                    .join("");
+            }
+
+            function openAttendSummary() {
+                updateAttendSummary();
+                document.getElementById("attendSummaryModal")?.classList.add("show");
+            }
+
+            function closeAttendSummary() {
+                document.getElementById("attendSummaryModal")?.classList.remove("show");
+            }
+
+            function handleAttendCardKeydown(event) {
+                if (event.key === "Enter" || event.key === " ") {
+                    event.preventDefault();
+                    openAttendSummary();
+                }
             }
 
             function getVisibleData() {
@@ -2005,10 +2316,11 @@
 
             function drawTreeLinks(indexes, sourceData) {
                 const container = document.getElementById("tree");
-                const old = container.querySelector(".tree-lines");
+                const stage = container.querySelector(".tree-stage") || container;
+                const old = stage.querySelector(".tree-lines");
                 if (old) old.remove();
-                const width = container.scrollWidth;
-                const height = container.scrollHeight;
+                const width = stage.scrollWidth;
+                const height = stage.scrollHeight;
                 if (!width || !height) return;
                 const svgNS = "http://www.w3.org/2000/svg";
                 const svg = document.createElementNS(svgNS, "svg");
@@ -2071,18 +2383,33 @@
                     svg.appendChild(link);
                 });
 
-                container.prepend(svg);
+                stage.prepend(svg);
+            }
+
+            function scheduleTreeLinkRedraw() {
+                if (!lastTreeIndexes || !lastTreeVisibleData) return;
+                if (treeLinkRedrawFrame) return;
+                treeLinkRedrawFrame = requestAnimationFrame(() => {
+                    treeLinkRedrawFrame = null;
+                    drawTreeLinks(lastTreeIndexes, lastTreeVisibleData);
+                });
             }
 
             function draw() {
                 const visibleData = getVisibleData();
                 const indexes = buildIndexes(visibleData);
                 const container = document.getElementById("tree");
+                lastTreeIndexes = indexes;
+                lastTreeVisibleData = visibleData;
                 container.innerHTML = "";
                 if (visibleData.length === 0) {
                     container.innerHTML = '<div class="loading">ยังไม่มีข้อมูลสมาชิก</div>';
                     return;
                 }
+
+                const stage = document.createElement("div");
+                stage.className = "tree-stage";
+                container.appendChild(stage);
 
                 const groups = buildFamilyGroups(indexes, visibleData);
                 const generationMemo = new Map();
@@ -2144,7 +2471,7 @@
                         row.appendChild(members);
                         cluster.appendChild(row);
                     });
-                    container.appendChild(cluster);
+                    stage.appendChild(cluster);
                 });
 
                 drawTreeLinks(indexes, visibleData);
@@ -2531,6 +2858,14 @@
 
             document.getElementById("randomModal").addEventListener("click", (e) => {
                 if (e.target.id === "randomModal") closeRandomModal();
+            });
+
+            document.getElementById("donationSummaryModal").addEventListener("click", (e) => {
+                if (e.target.id === "donationSummaryModal") closeDonationSummary();
+            });
+
+            document.getElementById("attendSummaryModal").addEventListener("click", (e) => {
+                if (e.target.id === "attendSummaryModal") closeAttendSummary();
             });
 
             document.addEventListener("click", () => {
