@@ -274,6 +274,9 @@
                 min-width: 100%;
                 width: max-content;
             }
+            .tree-stage > .family-cluster + .family-cluster {
+                margin-top: 18px;
+            }
             .tree-lines {
                 position: absolute;
                 top: 0;
@@ -340,6 +343,42 @@
                 background: var(--warm-soft);
                 border: 1px solid rgba(138, 90, 43, 0.18);
             }
+            /* Generation title colors */
+            .generation-title.gen-1 {
+                background: #f3dcc7;
+                color: #8a5a2b;
+                border-color: rgba(138, 90, 43, 0.3);
+            }
+            .generation-title.gen-2 {
+                background: #f5d0b3;
+                color: #a0672f;
+                border-color: rgba(160, 103, 47, 0.3);
+            }
+            .generation-title.gen-3 {
+                background: #d9e6c4;
+                color: #5a7c2f;
+                border-color: rgba(90, 124, 47, 0.3);
+            }
+            .generation-title.gen-4 {
+                background: #c9dfe6;
+                color: #3d7a99;
+                border-color: rgba(61, 122, 153, 0.3);
+            }
+            .generation-title.gen-5 {
+                background: #e6c9df;
+                color: #8a5a7d;
+                border-color: rgba(138, 90, 125, 0.3);
+            }
+            .generation-title.gen-6 {
+                background: #f5e0a2;
+                color: #b8a000;
+                border-color: rgba(184, 160, 0, 0.3);
+            }
+            .generation-title.gen-7 {
+                background: #dcc9e6;
+                color: #7a5a99;
+                border-color: rgba(122, 90, 153, 0.3);
+            }
             .generation-members {
                 display: flex;
                 align-items: stretch;
@@ -390,6 +429,17 @@
                     border-color 0.2s ease;
                 position: relative;
                 z-index: 6;
+            }
+            .tree .card {
+                min-width: 240px;
+                max-width: none;
+                width: max-content;
+            }
+            .search-results .card {
+                min-width: 240px;
+                max-width: 100%;
+                width: fit-content;
+                flex: 0 0 auto;
             }
             .card:hover {
                 transform: translateY(-2px);
@@ -460,11 +510,23 @@
                 flex: 1;
                 min-width: 0;
             }
+            .tree .card-info {
+                min-width: max-content;
+            }
+            .search-results .card-info {
+                min-width: max-content;
+            }
             .name {
                 font-weight: 600;
                 font-size: 14px;
                 color: var(--text);
                 line-height: 1.3;
+            }
+            .tree .name {
+                white-space: nowrap;
+            }
+            .search-results .name {
+                white-space: nowrap;
             }
             .meta {
                 font-size: 12px;
@@ -670,8 +732,9 @@
                 font-weight: 700;
             }
             .search-results {
-                display: grid;
-                grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+                display: flex;
+                flex-wrap: wrap;
+                align-items: flex-start;
                 gap: 12px;
             }
             .search-empty {
@@ -1202,7 +1265,7 @@
                     display: inline;
                 }
                 .search-results {
-                    grid-template-columns: 1fr;
+                    gap: 10px;
                 }
             }
         </style>
@@ -1476,6 +1539,48 @@
             </div>
         </div>
 
+        <div class="modal-overlay" id="editMemberModal">
+            <div class="modal">
+                <h3>✏️ แก้ไขข้อมูลสมาชิก</h3>
+                <div class="field">
+                    <label>คำนำหน้า</label>
+                    <input type="text" id="editTitle" list="titleOptions" placeholder="เช่น นาย" />
+                </div>
+                <div class="field">
+                    <label>ชื่อ</label>
+                    <input type="text" id="editFirstname" placeholder="เช่น สมชาย" />
+                </div>
+                <div class="field">
+                    <label>นามสกุล</label>
+                    <input type="text" id="editLastname" placeholder="เช่น ใจดี" />
+                </div>
+                <div class="field">
+                    <label>สายครอบครัว</label>
+                    <input type="text" id="editFamilyLine" placeholder="เช่น 2" />
+                </div>
+                <div class="field">
+                    <label>รุ่น</label>
+                    <input type="text" id="editGeneration" placeholder="เช่น 4" />
+                </div>
+                <div class="field">
+                    <label>โค้ด</label>
+                    <input type="text" id="editCode" placeholder="เช่น P.1.2.1" />
+                </div>
+                <div class="field">
+                    <label>รหัสพ่อ/แม่ (ถ้ามี)</label>
+                    <input type="number" id="editParentId" placeholder="เช่น 101" min="1" />
+                </div>
+                <div class="field">
+                    <label>รหัสคู่สมรส (ถ้ามี)</label>
+                    <input type="number" id="editSpouseOf" placeholder="เช่น 102" min="1" />
+                </div>
+                <div class="modal-actions">
+                    <button class="btn-secondary" onclick="closeEditMember()">ยกเลิก</button>
+                    <button class="btn-primary" onclick="submitEditMember()">บันทึก</button>
+                </div>
+            </div>
+        </div>
+
         <div class="modal-overlay" id="randomModal">
             <div class="modal">
                 <h3>🎉 ผู้โชคดี</h3>
@@ -1512,6 +1617,7 @@
             let donateQrSourcePromise = null;
             let data = [];
             let currentDonateId = null;
+            let currentEditPersonId = null;
             let activeFamilyLine = "all";
             let activePage = "pageTree";
 
@@ -1883,7 +1989,7 @@
                 countEl.innerHTML = `พบ <strong>${list.length}</strong> คน`;
                 container.innerHTML = "";
                 list.sort((a, b) => `${a.firstname}`.localeCompare(`${b.firstname}`, "th")).forEach((person) => {
-                    const card = createPersonCard(person, "", { showFamily: true, fullWidth: true, showTreeShortcut: true });
+                    const card = createPersonCard(person, "", { showFamily: true, showTreeShortcut: true });
                     container.appendChild(card);
                 });
             }
@@ -2120,6 +2226,22 @@
                 return `${node.title || ""} ${node.firstname || ""} ${node.lastname || ""}`.trim();
             }
 
+            function displayNameWithNickname(node) {
+                const title = String(node.title || "").trim();
+                const firstname = String(node.firstname || "").trim();
+                const lastname = String(node.lastname || "").trim();
+                const nickname = String(node.nickname || node.nick_name || "").trim();
+
+                const nameParts = [];
+                if (title) nameParts.push(title);
+                if (firstname) nameParts.push(firstname);
+                if (lastname) nameParts.push(lastname);
+
+                const baseName = nameParts.join(" ").trim();
+                if (!nickname) return baseName;
+                return `${baseName} (${nickname})`;
+            }
+
             function buildIndexes(data) {
                 const byId = new Map(data.map((p) => [p.id, p]));
                 const childrenByParent = new Map();
@@ -2269,7 +2391,7 @@
                     <div class="${topClass}">
                         <div class="avatar ${node.attend ? "attended" : ""}">${initials(node)}</div>
                         <div class="card-info">
-                            <div class="name">${node.firstname || ""} ${node.lastname || ""}</div>
+                            <div class="name">${displayNameWithNickname(node)}</div>
                             <div class="meta">
                                 ${statusChip}
                                 ${donationChip}
@@ -2284,6 +2406,7 @@
                                 : `<button class="btn-primary" onclick="checkin(${node.id})">✔ เช็คอิน</button>`
                         }
                         <button class="btn-secondary" onclick="openDonate(${node.id})">💰 บริจาค</button>
+                        <button class="btn-secondary" onclick="openEditMember(${node.id})">✏️ แก้ไข</button>
                         <div class="add-menu">
                             <button class="btn-secondary add-menu-toggle" type="button" onclick="toggleAddMenu(event, ${node.id})">➕</button>
                             <div class="add-menu-list" id="addMenu-${node.id}">
@@ -2373,12 +2496,13 @@
                     const cands = spouseAnchor.get(parent.id) || [];
                     let parentAnchor = getAnchorPoint(parentCard, treeRect, "bottom");
                     if (cands.length === 1) parentAnchor = cands[0];
+                    const childEntryY = Math.max(childTop.y - 8, 0);
                     const startY = parentAnchor.y + 2;
-                    const midY = startY + Math.max(16, (childTop.y - startY) * 0.45);
+                    const midY = startY + Math.max(16, (childEntryY - startY) * 0.45);
                     const link = document.createElementNS(svgNS, "path");
                     link.setAttribute(
                         "d",
-                        `M ${parentAnchor.x} ${startY} L ${parentAnchor.x} ${midY} L ${childTop.x} ${midY} L ${childTop.x} ${childTop.y}`,
+                        `M ${parentAnchor.x} ${startY} L ${parentAnchor.x} ${midY} L ${childTop.x} ${midY} L ${childTop.x} ${childEntryY}`,
                     );
                     svg.appendChild(link);
                 });
@@ -2432,7 +2556,7 @@
                         const row = document.createElement("div");
                         row.className = "generation-row";
                         const t = document.createElement("div");
-                        t.className = "generation-title";
+                        t.className = `generation-title gen-${lvl}`;
                         t.textContent = `รุ่น ${lvl}`;
                         row.appendChild(t);
                         const members = document.createElement("div");
@@ -2818,6 +2942,83 @@
                 }
             }
 
+            function openEditMember(id) {
+                closeAllAddMenus();
+                const person = data.find((p) => Number(p.id) === Number(id));
+                if (!person) {
+                    toast("ไม่พบข้อมูล");
+                    return;
+                }
+
+                currentEditPersonId = id;
+                document.getElementById("editTitle").value = person.title || "";
+                document.getElementById("editFirstname").value = person.firstname || "";
+                document.getElementById("editLastname").value = person.lastname || "";
+                document.getElementById("editFamilyLine").value = person.family_line || "";
+                document.getElementById("editGeneration").value = person.generation || "";
+                document.getElementById("editCode").value = person.code || "";
+                document.getElementById("editParentId").value = person.parent_id || "";
+                document.getElementById("editSpouseOf").value = person.spouse_of || "";
+
+                document.getElementById("editMemberModal").classList.add("show");
+                setTimeout(() => document.getElementById("editFirstname").focus(), 100);
+            }
+
+            function closeEditMember() {
+                document.getElementById("editMemberModal").classList.remove("show");
+                currentEditPersonId = null;
+            }
+
+            async function submitEditMember() {
+                if (!currentEditPersonId) {
+                    toast("ไม่พบข้อมูล");
+                    return;
+                }
+
+                const firstname = document.getElementById("editFirstname").value.trim();
+                const lastname = document.getElementById("editLastname").value.trim();
+                const title = document.getElementById("editTitle").value.trim();
+                const familyLine = document.getElementById("editFamilyLine").value.trim();
+                const generation = document.getElementById("editGeneration").value.trim();
+                const code = document.getElementById("editCode").value.trim();
+                const parentId = document.getElementById("editParentId").value.trim();
+                const spouseOf = document.getElementById("editSpouseOf").value.trim();
+
+                if (!firstname || !lastname) {
+                    toast("กรุณากรอกชื่อและนามสกุล");
+                    return;
+                }
+
+                const payload = {
+                    id: String(currentEditPersonId),
+                    title,
+                    firstname,
+                    lastname,
+                    family_line: familyLine,
+                    generation,
+                    code,
+                    parent_id: parentId,
+                    spouse_of: spouseOf,
+                };
+
+                toast("กำลังแก้ไขข้อมูล...");
+                try {
+                    const response = await fetch(`${API_URL}/id/${currentEditPersonId}`, {
+                        method: "PUT",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ data: [payload] }),
+                    });
+                    if (!response.ok) {
+                        throw new Error("failed to update member");
+                    }
+                    closeEditMember();
+                    toast("แก้ไขข้อมูลเรียบร้อย");
+                    await loadData();
+                } catch {
+                    toast("แก้ไขข้อมูลไม่สำเร็จ");
+                }
+            }
+
             function closeDonate() {
                 document.getElementById("donateModal").classList.remove("show");
                 currentDonateId = null;
@@ -2854,6 +3055,10 @@
 
             document.getElementById("addMemberModal").addEventListener("click", (e) => {
                 if (e.target.id === "addMemberModal") closeAddMember();
+            });
+
+            document.getElementById("editMemberModal").addEventListener("click", (e) => {
+                if (e.target.id === "editMemberModal") closeEditMember();
             });
 
             document.getElementById("randomModal").addEventListener("click", (e) => {
