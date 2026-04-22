@@ -1,0 +1,2568 @@
+<!doctype html>
+<html lang="th">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+        <meta name="theme-color" content="#5e7d31" />
+        <title>🌾 งานสังสรรค์เปาอินทร์ ครั้งที่ 50</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,700;1,500&display=swap"
+            rel="stylesheet"
+        />
+        <style>
+            /* =========================================================
+                PALETTE — เขียวใบหญ้า · ทองรวงข้าว · น้ำตาลอบอุ่น
+               ========================================================= */
+            :root {
+                --bg: #faf6ec;
+                --bg-2: #f0e8d0;
+                --bg-3: #e6d9b6;
+
+                --text: #3a2c1a; /* น้ำตาลเข้ม */
+                --text-soft: #6b5230; /* น้ำตาลอบอุ่น */
+                --muted: #9b8865;
+
+                --primary: #5e7d31; /* เขียวใบหญ้า */
+                --primary-glow: #7ea64a;
+                --primary-soft: #e3ecd0;
+
+                --accent: #d4a73a; /* ทองรวงข้าว */
+                --accent-glow: #ecc658;
+                --accent-soft: #faecc4;
+
+                --warm: #8a5a2b; /* น้ำตาลอบอุ่น */
+                --warm-soft: #f3e3cc;
+
+                --card: #fffdf6;
+                --border: #ddc89c;
+
+                --shadow-sm: 0 2px 8px -2px rgba(58, 44, 26, 0.1);
+                --shadow-md: 0 8px 24px -8px rgba(58, 44, 26, 0.18);
+                --shadow-lg: 0 16px 40px -12px rgba(94, 125, 49, 0.3);
+                --shadow-gold: 0 8px 24px -6px rgba(212, 167, 58, 0.4);
+
+                --radius: 16px;
+            }
+            * {
+                box-sizing: border-box;
+            }
+            html,
+            body {
+                margin: 0;
+                padding: 0;
+            }
+
+            body {
+                font-family:
+                    "Prompt",
+                    system-ui,
+                    -apple-system,
+                    sans-serif;
+                color: var(--text);
+                background:
+                    radial-gradient(circle at 10% 0%, #e8e6c4 0%, transparent 42%),
+                    radial-gradient(circle at 90% 100%, #d8e5b8 0%, transparent 45%),
+                    linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 100%);
+                background-attachment: fixed;
+                min-height: 100vh;
+                line-height: 1.6;
+                padding: 12px 8px 110px; /* room for bottom nav */
+            }
+
+            .container {
+                max-width: none;
+                width: 100%;
+                margin: 0 auto;
+            }
+
+            .top-actions {
+                display: flex;
+                justify-content: flex-end;
+                gap: 8px;
+                flex-wrap: wrap;
+                margin-bottom: 8px;
+            }
+
+            /* ===== HERO ===== */
+            .hero {
+                text-align: center;
+                padding: 28px 20px 24px;
+                margin-bottom: 18px;
+                background: linear-gradient(180deg, rgba(255, 253, 246, 0.95), rgba(255, 253, 246, 0.65));
+                border-radius: 22px;
+                border: 1px solid var(--border);
+                box-shadow: var(--shadow-sm);
+                position: relative;
+                overflow: hidden;
+            }
+            .hero::before {
+                content: "🌾";
+                position: absolute;
+                font-size: 130px;
+                opacity: 0.07;
+                top: -22px;
+                left: -10px;
+                transform: rotate(-15deg);
+            }
+            .hero::after {
+                content: "🌿";
+                position: absolute;
+                font-size: 130px;
+                opacity: 0.07;
+                bottom: -30px;
+                right: -10px;
+                transform: rotate(20deg);
+            }
+            .hero h1 {
+                font-family: "Playfair Display", "Prompt", serif;
+                font-weight: 700;
+                font-size: clamp(26px, 5vw, 40px);
+                margin: 0 0 6px;
+                color: var(--text);
+                letter-spacing: -0.5px;
+            }
+            .hero h1 .leaf {
+                color: var(--primary);
+            }
+            .hero h1 .gold {
+                color: var(--accent);
+            }
+            .hero p {
+                margin: 0;
+                color: var(--text-soft);
+                font-size: 16px;
+                font-style: italic;
+                font-family: "Playfair Display", serif;
+            }
+
+            /* ===== STATS ===== */
+            .stats {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 10px;
+                margin-bottom: 18px;
+            }
+            .stat {
+                background: var(--card);
+                border: 1px solid var(--border);
+                border-radius: var(--radius);
+                padding: 14px 10px;
+                text-align: center;
+                box-shadow: var(--shadow-sm);
+            }
+            .stat-icon {
+                font-size: 20px;
+                margin-bottom: 2px;
+            }
+            .stat-value {
+                font-family: "Playfair Display", serif;
+                font-size: 24px;
+                font-weight: 700;
+                color: var(--primary);
+                line-height: 1.1;
+            }
+            .stat-label {
+                font-size: 12px;
+                color: var(--text-soft);
+                margin-top: 2px;
+            }
+
+            /* ===== PAGES (tab navigation) ===== */
+            .page {
+                display: none;
+            }
+            .page.active {
+                display: block;
+            }
+
+            /* ===== SECTION CARD ===== */
+            .section {
+                background: var(--card);
+                border: 1px solid var(--border);
+                border-radius: 22px;
+                padding: 22px;
+                margin-bottom: 20px;
+                box-shadow: var(--shadow-sm);
+            }
+            .section-header {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                margin-bottom: 18px;
+                padding-bottom: 14px;
+                border-bottom: 2px dashed var(--border);
+                flex-wrap: wrap;
+            }
+            .section-header h2 {
+                font-family: "Playfair Display", serif;
+                font-size: 22px;
+                margin: 0;
+                color: var(--text);
+                font-weight: 700;
+            }
+            .section-header .badge {
+                margin-left: auto;
+                background: var(--primary-soft);
+                color: var(--primary);
+                padding: 4px 12px;
+                border-radius: 999px;
+                font-size: 13px;
+                font-weight: 600;
+            }
+            .section-help {
+                margin: -8px 0 14px;
+                font-size: 13px;
+                color: var(--text-soft);
+            }
+
+            /* ===== FAMILY TABS ===== */
+            .family-tabs {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+                margin: 0 0 14px;
+            }
+            .family-tab {
+                border: 1px solid var(--border);
+                background: #fff;
+                color: var(--text-soft);
+                border-radius: 999px;
+                padding: 8px 14px;
+                font-weight: 600;
+                cursor: pointer;
+                transition: all 0.2s ease;
+            }
+            .family-tab:hover {
+                border-color: var(--primary-glow);
+                color: var(--primary);
+            }
+            .family-tab.active {
+                background: linear-gradient(135deg, var(--primary), var(--primary-glow));
+                color: #fff;
+                border-color: transparent;
+                box-shadow: 0 2px 8px rgba(94, 125, 49, 0.28);
+            }
+
+            /* ===== TREE ===== */
+            .tree {
+                position: relative;
+                padding: 4px;
+                display: flex;
+                flex-direction: column;
+                gap: 14px;
+                overflow-x: auto;
+                overflow-y: hidden;
+                padding-bottom: 14px;
+            }
+            .tree-lines {
+                position: absolute;
+                inset: 0;
+                pointer-events: none;
+                z-index: 4;
+                overflow: visible;
+            }
+            .tree-lines path {
+                fill: none;
+                stroke: rgba(94, 125, 49, 0.95);
+                stroke-width: 3;
+                stroke-linecap: round;
+                stroke-linejoin: round;
+                filter: drop-shadow(0 1px 0 rgba(255, 255, 255, 0.55));
+            }
+            .tree-lines .spouse-link {
+                stroke: rgba(212, 167, 58, 0.95);
+                stroke-width: 3.6;
+            }
+            .family-cluster {
+                position: relative;
+                z-index: 2;
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+                border: 2px solid rgba(94, 125, 49, 0.2);
+                border-radius: 18px;
+                padding: 12px;
+                background: linear-gradient(180deg, rgba(255, 253, 246, 0.9), rgba(250, 246, 236, 0.9));
+                box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6);
+            }
+            .cluster-title {
+                font-family: "Playfair Display", "Prompt", serif;
+                font-size: 18px;
+                font-weight: 700;
+                color: var(--text);
+                display: inline-flex;
+                align-self: flex-start;
+                padding: 5px 12px;
+                border-radius: 999px;
+                border: 1px solid rgba(94, 125, 49, 0.28);
+                background: rgba(227, 236, 208, 0.7);
+            }
+            .generation-row {
+                position: relative;
+                z-index: 2;
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+                border: 1px dashed rgba(212, 167, 58, 0.35);
+                border-radius: 14px;
+                padding: 10px;
+                background: rgba(255, 253, 246, 0.6);
+            }
+            .generation-title {
+                font-size: 13px;
+                font-weight: 600;
+                color: var(--warm);
+                display: inline-flex;
+                align-self: flex-start;
+                padding: 4px 10px;
+                border-radius: 999px;
+                background: var(--warm-soft);
+                border: 1px solid rgba(138, 90, 43, 0.18);
+            }
+            .generation-members {
+                display: flex;
+                align-items: stretch;
+                gap: 10px;
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                padding-bottom: 2px;
+            }
+            .couple {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                flex-wrap: nowrap;
+                flex: 0 0 auto;
+            }
+            .love-heart {
+                color: #c4823c;
+                font-size: 20px;
+                line-height: 1;
+            }
+            .relation {
+                margin-top: 8px;
+                margin-bottom: 2px;
+                font-size: 13px;
+                color: var(--warm);
+                background: var(--warm-soft);
+                border: 1px solid rgba(138, 90, 43, 0.18);
+                display: inline-flex;
+                padding: 4px 10px;
+                border-radius: 999px;
+                max-width: 100%;
+            }
+
+            /* ===== PERSON CARD ===== */
+            .card {
+                background: linear-gradient(180deg, #fffdf6 0%, #faf2dc 100%);
+                border: 1px solid var(--border);
+                border-radius: var(--radius);
+                padding: 10px 12px;
+                margin: 0;
+                min-width: 180px;
+                max-width: 210px;
+                flex: 0 0 auto;
+                box-shadow: var(--shadow-sm);
+                transition:
+                    transform 0.2s ease,
+                    box-shadow 0.2s ease,
+                    border-color 0.2s ease;
+                position: relative;
+                z-index: 6;
+            }
+            .card:hover {
+                transform: translateY(-2px);
+                box-shadow: var(--shadow-md);
+                border-color: var(--primary-glow);
+            }
+            .card.attended {
+                background: linear-gradient(180deg, #f3f9e2 0%, #e3eec2 100%);
+                border-color: #b5cf80;
+            }
+            .card-tree-link {
+                position: absolute;
+                top: 8px;
+                left: 8px;
+                width: 30px;
+                height: 30px;
+                border-radius: 999px;
+                border: 1px solid rgba(94, 125, 49, 0.45);
+                background: rgba(255, 255, 255, 0.92);
+                color: var(--primary);
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                z-index: 8;
+                box-shadow: 0 4px 12px -6px rgba(58, 44, 26, 0.35);
+                padding: 0;
+            }
+            .card-tree-link:hover {
+                background: var(--primary-soft);
+                border-color: var(--primary-glow);
+            }
+            .card-top.with-tree-link {
+                padding-left: 34px;
+            }
+            .card.jump-focus {
+                border-color: var(--accent);
+                box-shadow:
+                    0 0 0 3px rgba(212, 167, 58, 0.35),
+                    var(--shadow-md);
+            }
+            .card-top {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                flex-wrap: nowrap;
+            }
+            .avatar {
+                width: 36px;
+                height: 36px;
+                border-radius: 50%;
+                background: linear-gradient(135deg, var(--warm), #b07a3a);
+                color: #fff;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-weight: 600;
+                font-size: 13px;
+                flex-shrink: 0;
+                box-shadow: 0 2px 8px rgba(138, 90, 43, 0.28);
+                font-family: "Playfair Display", serif;
+            }
+            .avatar.attended {
+                background: linear-gradient(135deg, var(--primary), var(--primary-glow));
+                box-shadow: 0 2px 8px rgba(94, 125, 49, 0.32);
+            }
+            .card-info {
+                flex: 1;
+                min-width: 0;
+            }
+            .name {
+                font-weight: 600;
+                font-size: 14px;
+                color: var(--text);
+                line-height: 1.3;
+            }
+            .meta {
+                font-size: 12px;
+                color: var(--text-soft);
+                margin-top: 3px;
+                display: flex;
+                align-items: center;
+                gap: 6px;
+                flex-wrap: wrap;
+            }
+            .chip {
+                display: inline-flex;
+                align-items: center;
+                gap: 4px;
+                padding: 2px 8px;
+                border-radius: 999px;
+                font-size: 11px;
+                font-weight: 500;
+            }
+            .chip.attend {
+                background: var(--primary-soft);
+                color: var(--primary);
+            }
+            .chip.not {
+                background: #f0e8dc;
+                color: var(--muted);
+            }
+            .chip.donation {
+                background: var(--accent-soft);
+                color: #9a7820;
+            }
+            .chip.family {
+                background: var(--warm-soft);
+                color: var(--warm);
+            }
+
+            .card-actions {
+                display: flex;
+                gap: 6px;
+                margin-top: 8px;
+                flex-wrap: wrap;
+                align-items: center;
+            }
+
+            .add-menu {
+                margin-left: auto;
+                position: relative;
+            }
+
+            .add-menu-toggle {
+                min-width: 40px;
+                justify-content: center;
+                padding: 8px 10px;
+            }
+
+            .add-menu-list {
+                position: absolute;
+                right: 0;
+                bottom: calc(100% + 6px);
+                display: none;
+                flex-direction: column;
+                gap: 6px;
+                min-width: 132px;
+                padding: 8px;
+                background: #fffdf6;
+                border: 1px solid var(--border);
+                border-radius: 12px;
+                box-shadow: var(--shadow-md);
+                z-index: 30;
+            }
+
+            .add-menu-list.show {
+                display: flex;
+            }
+
+            .add-menu-item {
+                width: 100%;
+                justify-content: flex-start;
+            }
+
+            /* ===== BUTTONS ===== */
+            button {
+                font-family: inherit;
+                font-size: 13px;
+                font-weight: 600;
+                padding: 8px 12px;
+                border-radius: 12px;
+                border: 1px solid transparent;
+                cursor: pointer;
+                transition: all 0.2s ease;
+                display: inline-flex;
+                align-items: center;
+                gap: 6px;
+            }
+            button:active {
+                transform: scale(0.97);
+            }
+            button:disabled {
+                cursor: default;
+            }
+
+            .btn-primary {
+                background: linear-gradient(135deg, var(--primary), var(--primary-glow));
+                color: #fff;
+                box-shadow: 0 2px 8px rgba(94, 125, 49, 0.28);
+            }
+            .btn-primary:hover {
+                transform: translateY(-1px);
+                box-shadow: var(--shadow-lg);
+            }
+            .btn-secondary {
+                background: #fff;
+                color: var(--text);
+                border-color: var(--border);
+            }
+            .btn-secondary:hover {
+                background: var(--primary-soft);
+                border-color: var(--primary-glow);
+                color: var(--primary);
+            }
+            .btn-gold {
+                background: linear-gradient(135deg, var(--accent), var(--accent-glow));
+                color: #fff;
+                box-shadow: var(--shadow-gold);
+            }
+            .btn-gold:hover {
+                transform: translateY(-1px);
+                box-shadow: 0 12px 28px -6px rgba(212, 167, 58, 0.5);
+            }
+            .btn-large {
+                padding: 14px 28px;
+                font-size: 16px;
+                font-weight: 700;
+                border-radius: 14px;
+            }
+
+            /* ===== SEARCH PAGE ===== */
+            .search-toolbar {
+                display: grid;
+                grid-template-columns: 1fr;
+                gap: 10px;
+                margin-bottom: 14px;
+            }
+            @media (min-width: 640px) {
+                .search-toolbar {
+                    grid-template-columns: 1fr 200px 200px;
+                }
+            }
+            .search-input-wrap {
+                position: relative;
+            }
+            .search-input-wrap::before {
+                content: "🔍";
+                position: absolute;
+                left: 14px;
+                top: 50%;
+                transform: translateY(-50%);
+                font-size: 16px;
+                pointer-events: none;
+                opacity: 0.7;
+            }
+            .search-input {
+                width: 100%;
+                padding: 12px 14px 12px 42px;
+                border: 1px solid var(--border);
+                border-radius: 14px;
+                font-family: inherit;
+                font-size: 15px;
+                background: #fff;
+                color: var(--text);
+                outline: none;
+                transition:
+                    border-color 0.2s,
+                    box-shadow 0.2s;
+            }
+            .search-input:focus {
+                border-color: var(--primary);
+                box-shadow: 0 0 0 3px var(--primary-soft);
+            }
+            .search-select {
+                width: 100%;
+                padding: 12px 14px;
+                border: 1px solid var(--border);
+                border-radius: 14px;
+                font-family: inherit;
+                font-size: 15px;
+                background: #fff;
+                color: var(--text);
+                outline: none;
+                cursor: pointer;
+            }
+            .search-select:focus {
+                border-color: var(--primary);
+                box-shadow: 0 0 0 3px var(--primary-soft);
+            }
+            .search-count {
+                font-size: 14px;
+                color: var(--text-soft);
+                margin-bottom: 12px;
+            }
+            .search-count strong {
+                color: var(--primary);
+                font-weight: 700;
+            }
+            .search-results {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+                gap: 12px;
+            }
+            .search-empty {
+                text-align: center;
+                padding: 50px 20px;
+                color: var(--muted);
+                font-size: 15px;
+                background: rgba(255, 253, 246, 0.6);
+                border: 1px dashed var(--border);
+                border-radius: 18px;
+            }
+
+            /* ===== RANDOM ===== */
+            .random-tabs {
+                display: flex;
+                gap: 8px;
+                margin-bottom: 14px;
+                flex-wrap: wrap;
+            }
+            .random-tab {
+                border: 1px solid var(--border);
+                background: #fff;
+                color: var(--text-soft);
+                border-radius: 999px;
+                padding: 8px 14px;
+                font-weight: 600;
+                cursor: pointer;
+                transition: all 0.2s ease;
+            }
+            .random-tab:hover {
+                border-color: var(--accent-glow);
+                color: var(--accent);
+            }
+            .random-tab.active {
+                background: linear-gradient(135deg, var(--accent), var(--accent-glow));
+                color: #fff;
+                border-color: transparent;
+                box-shadow: 0 2px 8px rgba(212, 167, 58, 0.32);
+            }
+            .random-panel {
+                display: none;
+            }
+            .random-panel.active {
+                display: block;
+            }
+            .random-box {
+                text-align: center;
+                padding: 12px 0 4px;
+            }
+            .random-eligible {
+                margin-top: 10px;
+                font-size: 13px;
+                color: var(--text-soft);
+            }
+
+            .wheel-wrap {
+                display: flex;
+                justify-content: center;
+                margin: 8px 0 14px;
+            }
+            .wheel-stage {
+                position: relative;
+                width: min(560px, 100%);
+                aspect-ratio: 1 / 1;
+                border-radius: 50%;
+                border: 2px solid var(--border);
+                background: radial-gradient(circle, #fffdf6 0%, #f7ecd1 100%);
+                box-shadow: var(--shadow-sm);
+                padding: 8px;
+            }
+            .wheel-pointer {
+                position: absolute;
+                top: -2px;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 0;
+                height: 0;
+                border-left: 14px solid transparent;
+                border-right: 14px solid transparent;
+                border-top: 24px solid var(--primary);
+                filter: drop-shadow(0 1px 2px rgba(58, 44, 26, 0.25));
+                z-index: 3;
+            }
+            .wheel-canvas {
+                width: 100%;
+                height: 100%;
+                border-radius: 50%;
+                display: block;
+                background: #fff;
+            }
+            .wheel-center {
+                position: absolute;
+                inset: 50% auto auto 50%;
+                transform: translate(-50%, -50%);
+                width: 70px;
+                height: 70px;
+                border-radius: 50%;
+                background: linear-gradient(135deg, var(--accent), var(--accent-glow));
+                border: 4px solid #fff;
+                box-shadow: 0 4px 12px rgba(212, 167, 58, 0.35);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: #fff;
+                font-weight: 700;
+                font-size: 13px;
+                z-index: 2;
+                font-family: "Playfair Display", serif;
+            }
+            .result {
+                margin: 18px auto 0;
+                max-width: 520px;
+                padding: 22px;
+                background: linear-gradient(135deg, var(--accent-soft), #f5deaa);
+                border: 2px dashed var(--accent);
+                border-radius: 18px;
+                min-height: 60px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                transition: all 0.3s ease;
+            }
+            .result.empty {
+                color: var(--muted);
+                font-style: italic;
+            }
+            .result.show {
+                animation: pop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            }
+            .result-label {
+                font-size: 13px;
+                color: var(--text-soft);
+                margin-bottom: 4px;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+            }
+            .result-name {
+                font-family: "Playfair Display", serif;
+                font-size: 28px;
+                font-weight: 700;
+                color: var(--warm);
+                text-align: center;
+            }
+            @keyframes pop {
+                0% {
+                    transform: scale(0.85);
+                    opacity: 0;
+                }
+                100% {
+                    transform: scale(1);
+                    opacity: 1;
+                }
+            }
+
+            /* ===== LOADING ===== */
+            .loading {
+                text-align: center;
+                padding: 40px;
+                color: var(--text-soft);
+            }
+            .spinner {
+                display: inline-block;
+                width: 32px;
+                height: 32px;
+                border: 3px solid var(--border);
+                border-top-color: var(--primary);
+                border-radius: 50%;
+                animation: spin 1s linear infinite;
+                margin-bottom: 12px;
+            }
+            @keyframes spin {
+                to {
+                    transform: rotate(360deg);
+                }
+            }
+
+            /* ===== TOAST ===== */
+            .toast {
+                position: fixed;
+                bottom: 90px;
+                left: 50%;
+                transform: translateX(-50%) translateY(100px);
+                background: var(--text);
+                color: #fff;
+                padding: 12px 20px;
+                border-radius: 12px;
+                box-shadow: var(--shadow-lg);
+                z-index: 200;
+                transition: transform 0.3s ease;
+                font-size: 14px;
+                font-weight: 500;
+            }
+            .toast.show {
+                transform: translateX(-50%) translateY(0);
+            }
+
+            /* ===== MODAL ===== */
+            .modal-overlay {
+                position: fixed;
+                inset: 0;
+                background: rgba(58, 44, 26, 0.55);
+                backdrop-filter: blur(4px);
+                display: none;
+                align-items: center;
+                justify-content: center;
+                z-index: 150;
+                padding: 16px;
+            }
+            .modal-overlay.show {
+                display: flex;
+                animation: fadeIn 0.2s ease;
+            }
+            @keyframes fadeIn {
+                from {
+                    opacity: 0;
+                }
+                to {
+                    opacity: 1;
+                }
+            }
+            .modal {
+                background: var(--card);
+                border-radius: 20px;
+                padding: 24px;
+                max-width: 400px;
+                width: 100%;
+                box-shadow: var(--shadow-lg);
+                animation: pop 0.3s ease;
+            }
+            .modal h3 {
+                font-family: "Playfair Display", serif;
+                margin: 0 0 16px;
+                font-size: 22px;
+                color: var(--text);
+            }
+            .field {
+                margin-bottom: 14px;
+            }
+            .field label {
+                display: block;
+                font-size: 13px;
+                color: var(--text-soft);
+                margin-bottom: 6px;
+                font-weight: 500;
+            }
+            .field input,
+            .field select {
+                width: 100%;
+                padding: 11px 14px;
+                border: 1px solid var(--border);
+                border-radius: 12px;
+                font-family: inherit;
+                font-size: 15px;
+                background: #fff;
+                color: var(--text);
+                outline: none;
+                transition: border-color 0.2s ease;
+            }
+            .field input:focus,
+            .field select:focus {
+                border-color: var(--primary);
+                box-shadow: 0 0 0 3px var(--primary-soft);
+            }
+            .donate-step {
+                display: none;
+            }
+            .donate-step.active {
+                display: block;
+            }
+            .donate-choice-grid {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 10px;
+            }
+            .donate-choice-btn {
+                width: 100%;
+                justify-content: center;
+                padding: 14px 12px;
+                border-radius: 14px;
+                font-size: 15px;
+            }
+            .donate-qr-wrap {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+                padding: 12px;
+                border: 1px dashed var(--border);
+                border-radius: 16px;
+                background: rgba(255, 253, 246, 0.7);
+            }
+            .donate-qr-image {
+                width: min(100%, 280px);
+                aspect-ratio: 1 / 1;
+                border-radius: 16px;
+                object-fit: contain;
+                background: #fff;
+                border: 1px solid var(--border);
+                box-shadow: var(--shadow-sm);
+            }
+            .donate-qr-note {
+                margin: 0;
+                font-size: 13px;
+                color: var(--text-soft);
+                text-align: center;
+            }
+            .modal-actions {
+                display: flex;
+                gap: 8px;
+                justify-content: flex-end;
+                margin-top: 20px;
+            }
+
+            /* =========================================================
+               BOTTOM NAV — แทบเปลี่ยนหน้า
+               ========================================================= */
+            .bottom-nav {
+                position: fixed;
+                bottom: 14px;
+                left: 50%;
+                transform: translateX(-50%);
+                z-index: 100;
+                display: flex;
+                gap: 4px;
+                background: rgba(255, 253, 246, 0.96);
+                backdrop-filter: blur(12px);
+                border: 1px solid var(--border);
+                border-radius: 999px;
+                padding: 6px;
+                box-shadow: 0 12px 32px -8px rgba(58, 44, 26, 0.25);
+                max-width: calc(100% - 24px);
+            }
+            .nav-btn {
+                background: transparent;
+                color: var(--text-soft);
+                border: none;
+                border-radius: 999px;
+                padding: 10px 18px;
+                font-size: 14px;
+                font-weight: 600;
+                display: inline-flex;
+                align-items: center;
+                gap: 6px;
+                cursor: pointer;
+                transition: all 0.25s ease;
+                white-space: nowrap;
+            }
+            .nav-btn .nav-icon {
+                font-size: 16px;
+            }
+            .nav-btn .nav-label {
+                display: inline;
+            }
+            .nav-btn:hover {
+                color: var(--primary);
+            }
+            .nav-btn.active {
+                background: linear-gradient(135deg, var(--primary), var(--primary-glow));
+                color: #fff;
+                box-shadow: 0 4px 12px rgba(94, 125, 49, 0.32);
+            }
+            .nav-btn.active.gold {
+                background: linear-gradient(135deg, var(--accent), var(--accent-glow));
+                box-shadow: 0 4px 12px rgba(212, 167, 58, 0.35);
+            }
+
+            /* mobile */
+            @media (max-width: 540px) {
+                body {
+                    padding: 14px 12px 100px;
+                }
+                .section {
+                    padding: 18px;
+                    border-radius: 18px;
+                }
+                .stats {
+                    gap: 8px;
+                }
+                .stat {
+                    padding: 12px 8px;
+                }
+                .stat-value {
+                    font-size: 20px;
+                }
+                .stat-label {
+                    font-size: 11px;
+                }
+                .family-tabs {
+                    gap: 6px;
+                }
+                .family-tab {
+                    flex: 1;
+                    justify-content: center;
+                    min-width: 70px;
+                }
+                .random-tabs {
+                    flex-wrap: wrap;
+                }
+                .random-tab {
+                    flex: 1;
+                    justify-content: center;
+                }
+                .card-actions button {
+                    flex: 1;
+                    justify-content: center;
+                }
+                .card-actions .add-menu-toggle,
+                .card-actions .add-menu-item {
+                    flex: 0;
+                }
+                .hero {
+                    padding: 24px 14px 20px;
+                }
+                .nav-btn {
+                    padding: 9px 12px;
+                    font-size: 13px;
+                }
+                .nav-btn .nav-label {
+                    display: none;
+                }
+                .nav-btn.active .nav-label {
+                    display: inline;
+                }
+                .search-results {
+                    grid-template-columns: 1fr;
+                }
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="container">
+            <div class="top-actions">
+                <button class="btn-primary" onclick="openAddMember()">➕ เพิ่มสมาชิก</button>
+                <button class="btn-secondary" onclick="toggleFullscreen()">⛶ เต็มจอ</button>
+            </div>
+
+            <!-- HERO -->
+            <header class="hero">
+                <h1>🌾 งานสังสรรค์เปาอินทร์ ครั้งที่ 50 <span class="leaf">🌿</span></h1>
+                <p>"9 พฤษภาคม 2569"</p>
+            </header>
+
+            <!-- STATS -->
+            <div class="stats" id="stats">
+                <div class="stat">
+                    <div class="stat-icon">👨‍👩‍👧‍👦</div>
+                    <div class="stat-value" id="statTotal">–</div>
+                    <div class="stat-label">สมาชิกทั้งหมด</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-icon">✨</div>
+                    <div class="stat-value" id="statAttend">–</div>
+                    <div class="stat-label">มาร่วมงาน</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-icon">💰</div>
+                    <div class="stat-value" id="statDonation">–</div>
+                    <div class="stat-label">ยอดบริจาค (บาท)</div>
+                </div>
+            </div>
+
+            <!-- ====== PAGE 1 : TREE ====== -->
+            <div class="page active" id="pageTree">
+                <section class="section">
+                    <div class="section-header">
+                        <h2>🌳 แผนผังครอบครัว</h2>
+                        <span class="badge" id="treeBadge">กำลังโหลด...</span>
+                    </div>
+                    <div class="section-help">เลือกสายครอบครัว แล้วเลื่อนเพื่อดูสมาชิกแต่ละรุ่น แตะการ์ดเพื่อเช็คอินหรือบันทึกบริจาค</div>
+                    <div id="familyTabs" class="family-tabs"></div>
+                    <div id="tree" class="tree">
+                        <div class="loading">
+                            <div class="spinner"></div>
+                            <div>กำลังโหลดข้อมูล...</div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- ====== PAGE 2 : SEARCH ====== -->
+            <div class="page" id="pageSearch">
+                <section class="section">
+                    <div class="section-header">
+                        <h2>🔍 ค้นหาสมาชิก</h2>
+                        <span class="badge" id="searchBadge">0 คน</span>
+                    </div>
+                    <div class="section-help">พิมพ์ชื่อ-นามสกุล หรือเลือกตัวกรองเพื่อหาสมาชิกได้เร็วขึ้น</div>
+
+                    <div class="search-toolbar">
+                        <div class="search-input-wrap">
+                            <input
+                                type="search"
+                                id="searchInput"
+                                class="search-input"
+                                placeholder="ค้นหาด้วยชื่อหรือนามสกุล..."
+                                autocomplete="off"
+                            />
+                        </div>
+                        <select id="searchLine" class="search-select">
+                            <option value="all">ทุกสาย</option>
+                        </select>
+                        <select id="searchStatus" class="search-select">
+                            <option value="all">สถานะ: ทั้งหมด</option>
+                            <option value="attend">มาร่วมงาน</option>
+                            <option value="not">ยังไม่มา</option>
+                            <option value="donated">บริจาคแล้ว</option>
+                        </select>
+                    </div>
+
+                    <div class="search-count" id="searchCount">เริ่มค้นหาเพื่อแสดงรายชื่อ</div>
+                    <div id="searchResults" class="search-results"></div>
+                </section>
+            </div>
+
+            <!-- ====== PAGE 3 : RANDOM ====== -->
+            <div class="page" id="pageRandom">
+                <section class="section">
+                    <div class="section-header">
+                        <h2>🎲 สุ่มผู้โชคดี</h2>
+                        <span class="badge" id="randomBadge">0 คน</span>
+                    </div>
+                    <div class="section-help">สุ่มจากผู้ที่เช็คอินมาร่วมงานแล้ว ด้วยวงล้อรายชื่อ</div>
+
+                    <div class="random-panel active" id="randomWheelPanel">
+                        <div class="random-box">
+                            <div class="wheel-wrap">
+                                <div class="wheel-stage">
+                                    <div class="wheel-pointer"></div>
+                                    <canvas id="wheelCanvas" class="wheel-canvas" width="640" height="640"></canvas>
+                                    <div class="wheel-center">ลุ้น</div>
+                                </div>
+                            </div>
+                            <button id="spinWheelBtn" class="btn-gold btn-large" type="button" onclick="spinWheel()">🎡 หมุนวงล้อ</button>
+                            <div id="wheelResult" class="result empty">หมุนวงล้อเพื่อสุ่มผู้โชคดี</div>
+                            <div id="randomEligibleWheel" class="random-eligible"></div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        <!-- ===== BOTTOM NAV ===== -->
+        <nav class="bottom-nav" id="bottomNav">
+            <button class="nav-btn active" data-page="pageTree" type="button">
+                <span class="nav-icon">🌳</span><span class="nav-label">แผนผัง</span>
+            </button>
+            <button class="nav-btn" data-page="pageSearch" type="button">
+                <span class="nav-icon">🔍</span><span class="nav-label">ค้นหา</span>
+            </button>
+            <button class="nav-btn" data-page="pageRandom" data-style="gold" type="button">
+                <span class="nav-icon">🎲</span><span class="nav-label">สุ่ม</span>
+            </button>
+        </nav>
+
+        <!-- DONATE MODAL -->
+        <div class="modal-overlay" id="donateModal">
+            <div class="modal">
+                <h3>💰 บันทึกการบริจาค</h3>
+                <div class="donate-step active" id="donateMethodStep">
+                    <div class="field" style="margin-bottom: 10px">
+                        <label>เลือกวิธีการบริจาค</label>
+                        <div class="donate-choice-grid">
+                            <button class="btn-secondary donate-choice-btn" type="button" onclick="selectDonateMethod('cash')">💵 เงินสด</button>
+                            <button class="btn-secondary donate-choice-btn" type="button" onclick="selectDonateMethod('transfer')">📱 โอนเงิน</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="donate-step" id="donateAmountStep">
+                    <div class="field" id="donateQrField" style="display: none">
+                        <label>QR สำหรับโอน</label>
+                        <div class="donate-qr-wrap">
+                            <img id="donateQrImage" class="donate-qr-image" alt="QR สำหรับโอนเงิน" />
+                            <p class="donate-qr-note" id="donateQrNote">กำลังเตรียม QR สำหรับโอนเงิน</p>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label>จำนวนเงิน (บาท)</label>
+                        <input type="number" id="donateAmount" placeholder="เช่น 500" min="0" />
+                    </div>
+                </div>
+                <div class="modal-actions">
+                    <button class="btn-secondary" onclick="closeDonate()">ยกเลิก</button>
+                    <button class="btn-primary" id="donateSubmitBtn" onclick="submitDonate()" style="display: none">บันทึก</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-overlay" id="addMemberModal">
+            <div class="modal">
+                <h3 id="addMemberTitle">👤 เพิ่มสมาชิก</h3>
+                <div class="field">
+                    <label>คำนำหน้า</label>
+                    <input type="text" id="addTitle" list="titleOptions" placeholder="เช่น นาย" />
+                    <datalist id="titleOptions">
+                        <option value="นาย"></option>
+                        <option value="นาง"></option>
+                        <option value="นางสาว"></option>
+                        <option value="เด็กชาย"></option>
+                        <option value="เด็กหญิง"></option>
+                    </datalist>
+                </div>
+                <div class="field">
+                    <label>ชื่อ</label>
+                    <input type="text" id="addFirstname" placeholder="เช่น สมชาย" />
+                </div>
+                <div class="field">
+                    <label>นามสกุล</label>
+                    <input type="text" id="addLastname" placeholder="เช่น ใจดี" />
+                </div>
+                <div class="field">
+                    <label>สายครอบครัว</label>
+                    <input type="text" id="addFamilyLine" placeholder="เช่น 2" />
+                </div>
+                <div class="field">
+                    <label>รุ่น</label>
+                    <input type="text" id="addGeneration" placeholder="เช่น 4" />
+                </div>
+                <div class="field">
+                    <label>โค้ด</label>
+                    <input type="text" id="addCode" placeholder="เช่น P.1.2.1" />
+                </div>
+                <div class="field">
+                    <label>รหัสพ่อ/แม่ (ถ้ามี)</label>
+                    <input type="number" id="addParentId" placeholder="เช่น 101" min="1" />
+                </div>
+                <div class="field">
+                    <label>รหัสคู่สมรส (ถ้ามี)</label>
+                    <input type="number" id="addSpouseOf" placeholder="เช่น 102" min="1" />
+                </div>
+                <div class="modal-actions">
+                    <button class="btn-secondary" onclick="closeAddMember()">ยกเลิก</button>
+                    <button class="btn-primary" onclick="submitAddMember()">บันทึก</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-overlay" id="randomModal">
+            <div class="modal">
+                <h3>🎉 ผู้โชคดี</h3>
+                <div class="field" style="margin-bottom: 0">
+                    <div
+                        id="randomWinnerName"
+                        style="
+                            font-size: 24px;
+                            font-family: &quot;Playfair Display&quot;, serif;
+                            font-weight: 700;
+                            color: var(--warm);
+                            line-height: 1.2;
+                        "
+                    ></div>
+                    <div id="randomWinnerMeta" style="margin-top: 6px; font-size: 14px; color: var(--text-soft)"></div>
+                </div>
+                <div class="modal-actions">
+                    <button class="btn-secondary" onclick="closeRandomModal()">ยกเลิก</button>
+                    <button class="btn-primary" onclick="confirmRandomDraw()">OK</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="toast" id="toast"></div>
+
+        <script>
+            const API_URL = "https://sheetdb.io/api/v1/07juhey77n6ty";
+            const DONATE_QR_SHEET_EXPORT_URL = "https://docs.google.com/spreadsheets/d/1jPzWbq_MCTOqo1O6GTBtWUtu1SR8qWjUQmBz4A-1Teo/export?format=csv&gid=1443195252";
+            const DONATE_QR_GVIS_URL = "https://docs.google.com/spreadsheets/d/1jPzWbq_MCTOqo1O6GTBtWUtu1SR8qWjUQmBz4A-1Teo/gviz/tq?gid=1443195252&tqx=out:json&range=A1";
+            const DONATE_QR_IMAGE_URL = window.DONATE_QR_IMAGE_URL || localStorage.getItem("donate_qr_image_url") || "";
+            const DONATE_QR_IMAGE_BASE64 = window.DONATE_QR_IMAGE_BASE64 || localStorage.getItem("donate_qr_image_base64") || "";
+            let donateQrSourcePromise = null;
+            let data = [];
+            let currentDonateId = null;
+            let activeFamilyLine = "all";
+            let activePage = "pageTree";
+
+            // search state
+            let searchQuery = "";
+            let searchLineFilter = "all";
+            let searchStatusFilter = "all";
+
+            const wheelState = {
+                angle: -Math.PI / 2,
+                spinning: false,
+                items: [],
+                animationFrame: null,
+            };
+            let pendingRandomWinner = null;
+            let addMemberMode = "manual";
+            let addMemberAnchorId = null;
+            let donateMethod = "";
+
+            // โทนเขียว/ทอง/น้ำตาล
+            const WHEEL_PALETTE = ["#e3ecd0", "#cfe0a8", "#faecc4", "#f3d684", "#f3e3cc", "#e0c7a0", "#d6e9b8", "#fbe2a3"];
+
+            // ============ TOAST ============
+            function toast(msg) {
+                const t = document.getElementById("toast");
+                t.textContent = msg;
+                t.classList.add("show");
+                setTimeout(() => t.classList.remove("show"), 2200);
+            }
+
+            function normalizeDonateQrSource(value) {
+                const raw = String(value ?? "").trim();
+                if (!raw) return "";
+                return raw.startsWith("data:") ? raw : `data:image/png;base64,${raw}`;
+            }
+
+            async function fetchDonateQrSourceFromSheet() {
+                if (donateQrSourcePromise) return donateQrSourcePromise;
+
+                donateQrSourcePromise = (async () => {
+                    try {
+                        return await new Promise((resolve) => {
+                            const previous = window.google?.visualization?.Query?.setResponse;
+                            const cleanup = () => {
+                                if (script.parentNode) script.parentNode.removeChild(script);
+                                if (previous) {
+                                    window.google.visualization.Query.setResponse = previous;
+                                } else if (window.google?.visualization?.Query) {
+                                    delete window.google.visualization.Query.setResponse;
+                                }
+                            };
+
+                            const script = document.createElement("script");
+                            script.async = true;
+                            script.src = DONATE_QR_GVIS_URL;
+
+                            window.google = window.google || {};
+                            window.google.visualization = window.google.visualization || {};
+                            window.google.visualization.Query = window.google.visualization.Query || {};
+                            window.google.visualization.Query.setResponse = (response) => {
+                                cleanup();
+                                const cell = response?.table?.rows?.[0]?.c?.[0]?.v || "";
+                                resolve(normalizeDonateQrSource(cell));
+                            };
+
+                            script.onerror = () => {
+                                cleanup();
+                                resolve("");
+                            };
+
+                            document.head.appendChild(script);
+                        });
+                    } catch {
+                        return "";
+                    } finally {
+                        donateQrSourcePromise = null;
+                    }
+                })();
+
+                return donateQrSourcePromise;
+            }
+
+            // ============ NAV ============
+            function switchPage(pageId) {
+                activePage = pageId;
+                document.querySelectorAll(".page").forEach((p) => {
+                    p.classList.toggle("active", p.id === pageId);
+                });
+                document.querySelectorAll(".nav-btn").forEach((b) => {
+                    const isActive = b.dataset.page === pageId;
+                    b.classList.toggle("active", isActive);
+                    b.classList.toggle("gold", isActive && b.dataset.style === "gold");
+                });
+                window.scrollTo({ top: 0, behavior: "smooth" });
+
+                // redraw based on page
+                if (pageId === "pageTree" && data.length) {
+                    setTimeout(() => draw(), 50);
+                }
+                if (pageId === "pageRandom") {
+                    setTimeout(() => drawWheel(), 50);
+                }
+                if (pageId === "pageSearch") {
+                    setTimeout(() => document.getElementById("searchInput")?.focus(), 100);
+                }
+            }
+
+            function initBottomNav() {
+                document.querySelectorAll(".nav-btn").forEach((btn) => {
+                    btn.addEventListener("click", () => switchPage(btn.dataset.page));
+                });
+            }
+
+            // ============ LOAD ============
+            async function loadData() {
+                try {
+                    const res = await fetch(API_URL);
+                    const raw = await res.json();
+                    data = raw.map((p) => ({
+                        ...p,
+                        id: Number(p.id),
+                        parent_id: p.parent_id ? Number(p.parent_id) : null,
+                        spouse_of: p.spouse_of ? Number(p.spouse_of) : null,
+                        attend: p.attend === "TRUE" || p.attend === true,
+                        random_drawn: p.random_drawn === "TRUE" || p.random_drawn === true,
+                        donation_amount: Number(p.donation_amount) || 0,
+                    }));
+
+                    const familyLines = getFamilyLines();
+                    if (!familyLines.includes(activeFamilyLine)) activeFamilyLine = "all";
+
+                    renderFamilyTabs();
+                    renderSearchLineOptions();
+                    draw();
+                    updateStats();
+                    refreshRandomViews();
+                    renderSearchResults();
+                } catch (e) {
+                    document.getElementById("tree").innerHTML = '<div class="loading">😢 โหลดข้อมูลไม่สำเร็จ</div>';
+                }
+            }
+
+            // ============ STATS ============
+            function updateStats() {
+                const visibleData = getVisibleData();
+                const total = visibleData.length;
+                const attend = visibleData.filter((p) => p.attend).length;
+                const donation = visibleData.reduce((s, p) => s + (p.donation_amount || 0), 0);
+                document.getElementById("statTotal").textContent = total;
+                document.getElementById("statAttend").textContent = attend;
+                document.getElementById("statDonation").textContent = donation.toLocaleString();
+                document.getElementById("treeBadge").textContent = `${attend}/${total} มาร่วมงาน`;
+            }
+
+            function getVisibleData() {
+                if (activeFamilyLine === "all") return data;
+                return data.filter((p) => String(p.family_line ?? "").trim() === activeFamilyLine);
+            }
+
+            function getFamilyLineLabel(value) {
+                return value === "all" ? "ทั้งหมด" : `สาย ${value}`;
+            }
+
+            function getFamilyLines() {
+                const values = Array.from(new Set(data.map((p) => String(p.family_line ?? "").trim()).filter((v) => v !== ""))).sort(
+                    (a, b) => {
+                        const na = Number(a),
+                            nb = Number(b);
+                        if (!Number.isNaN(na) && !Number.isNaN(nb)) return na - nb;
+                        return a.localeCompare(b, "th");
+                    },
+                );
+                return ["all", ...values];
+            }
+
+            function renderFamilyTabs() {
+                const container = document.getElementById("familyTabs");
+                if (!container) return;
+                container.innerHTML = "";
+                getFamilyLines().forEach((value) => {
+                    const button = document.createElement("button");
+                    button.className = `family-tab ${activeFamilyLine === value ? "active" : ""}`;
+                    button.textContent = getFamilyLineLabel(value);
+                    button.onclick = () => {
+                        activeFamilyLine = value;
+                        renderFamilyTabs();
+                        draw();
+                        updateStats();
+                        refreshRandomViews();
+                    };
+                    container.appendChild(button);
+                });
+            }
+
+            // ============ SEARCH ============
+            function renderSearchLineOptions() {
+                const sel = document.getElementById("searchLine");
+                if (!sel) return;
+                const current = sel.value || "all";
+                sel.innerHTML = "";
+                getFamilyLines().forEach((value) => {
+                    const opt = document.createElement("option");
+                    opt.value = value;
+                    opt.textContent = value === "all" ? "ทุกสาย" : `สาย ${value}`;
+                    sel.appendChild(opt);
+                });
+                sel.value = getFamilyLines().includes(current) ? current : "all";
+                searchLineFilter = sel.value;
+            }
+
+            function getSearchResults() {
+                const q = searchQuery.trim().toLowerCase();
+                return data.filter((p) => {
+                    if (searchLineFilter !== "all" && String(p.family_line ?? "").trim() !== searchLineFilter) return false;
+                    if (searchStatusFilter === "attend" && !p.attend) return false;
+                    if (searchStatusFilter === "not" && p.attend) return false;
+                    if (searchStatusFilter === "donated" && !(p.donation_amount > 0)) return false;
+                    if (!q) return true;
+                    const name = `${p.firstname || ""} ${p.lastname || ""}`.toLowerCase();
+                    return name.includes(q);
+                });
+            }
+
+            function renderSearchResults() {
+                const container = document.getElementById("searchResults");
+                const countEl = document.getElementById("searchCount");
+                const badge = document.getElementById("searchBadge");
+                if (!container) return;
+
+                const list = getSearchResults();
+                badge.textContent = `${list.length} คน`;
+
+                if (data.length === 0) {
+                    container.innerHTML = "";
+                    countEl.textContent = "กำลังโหลดข้อมูล...";
+                    return;
+                }
+
+                if (list.length === 0) {
+                    container.innerHTML = `<div class="search-empty">😶 ไม่พบสมาชิกที่ตรงกับเงื่อนไข</div>`;
+                    countEl.innerHTML = `พบ <strong>0</strong> คน`;
+                    return;
+                }
+
+                countEl.innerHTML = `พบ <strong>${list.length}</strong> คน`;
+                container.innerHTML = "";
+                list.sort((a, b) => `${a.firstname}`.localeCompare(`${b.firstname}`, "th")).forEach((person) => {
+                    const card = createPersonCard(person, "", { showFamily: true, fullWidth: true, showTreeShortcut: true });
+                    container.appendChild(card);
+                });
+            }
+
+            function initSearchControls() {
+                const input = document.getElementById("searchInput");
+                const lineSel = document.getElementById("searchLine");
+                const statusSel = document.getElementById("searchStatus");
+
+                input?.addEventListener("input", (e) => {
+                    searchQuery = e.target.value;
+                    renderSearchResults();
+                });
+                lineSel?.addEventListener("change", (e) => {
+                    searchLineFilter = e.target.value;
+                    renderSearchResults();
+                });
+                statusSel?.addEventListener("change", (e) => {
+                    searchStatusFilter = e.target.value;
+                    renderSearchResults();
+                });
+            }
+
+            // ============ RANDOM ============
+            function getEligiblePeople() {
+                return getVisibleData().filter((p) => p.attend && !p.random_drawn);
+            }
+
+            function formatWheelLabel(person) {
+                const line = String(person.family_line ?? "").trim();
+                const lineSuffix = line ? ` (สาย ${line})` : "";
+                return `${fullName(person)}${lineSuffix}`;
+            }
+
+            function refreshRandomViews() {
+                const eligible = getEligiblePeople();
+                const lineLabel = activeFamilyLine === "all" ? "ทุกสาย" : `สาย ${activeFamilyLine}`;
+                const summary = `ผู้มีสิทธิ์ลุ้น (${lineLabel}): ${eligible.length} คน`;
+                const wheelEl = document.getElementById("randomEligibleWheel");
+                const badge = document.getElementById("randomBadge");
+                if (wheelEl) wheelEl.textContent = summary;
+                if (badge) badge.textContent = `${eligible.length} คน`;
+
+                wheelState.items = eligible.map((person, i) => ({
+                    person,
+                    label: formatWheelLabel(person),
+                    color: WHEEL_PALETTE[i % WHEEL_PALETTE.length],
+                }));
+                if (!wheelState.spinning) drawWheel();
+            }
+
+            function openRandomModal(person) {
+                pendingRandomWinner = person;
+                const modal = document.getElementById("randomModal");
+                const nameEl = document.getElementById("randomWinnerName");
+                const metaEl = document.getElementById("randomWinnerMeta");
+                if (nameEl) {
+                    nameEl.textContent = fullName(person);
+                }
+                if (metaEl) {
+                    const line = String(person.family_line ?? "-").trim() || "-";
+                    const gen = String(person.generation ?? "-").trim() || "-";
+                    metaEl.textContent = `สาย ${line} • รุ่น ${gen}`;
+                }
+                modal?.classList.add("show");
+            }
+
+            function closeRandomModal() {
+                document.getElementById("randomModal")?.classList.remove("show");
+                pendingRandomWinner = null;
+            }
+
+            async function markRandomDrawn(person) {
+                const response = await fetch(`${API_URL}/id/${person.id}`, {
+                    method: "PATCH",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ data: { random_drawn: "TRUE" } }),
+                });
+                if (!response.ok) {
+                    throw new Error(`Failed to mark random_drawn for id ${person.id}`);
+                }
+                await loadData();
+            }
+
+            async function confirmRandomDraw() {
+                if (!pendingRandomWinner) {
+                    closeRandomModal();
+                    return;
+                }
+                const winner = pendingRandomWinner;
+                try {
+                    await markRandomDrawn(winner);
+                    closeRandomModal();
+                    toast("บันทึกผู้โชคดีเรียบร้อย");
+                } catch {
+                    toast("บันทึกสถานะผู้ถูกสุ่มไม่สำเร็จ");
+                }
+            }
+
+            function getWheelCanvasContext() {
+                const canvas = document.getElementById("wheelCanvas");
+                if (!canvas) return null;
+                const ratio = window.devicePixelRatio || 1;
+                const displaySize = Math.max(260, Math.floor(canvas.clientWidth || 0));
+                const targetSize = Math.floor(displaySize * ratio);
+                if (canvas.width !== targetSize || canvas.height !== targetSize) {
+                    canvas.width = targetSize;
+                    canvas.height = targetSize;
+                }
+                const ctx = canvas.getContext("2d");
+                if (!ctx) return null;
+                ctx.setTransform(1, 0, 0, 1, 0, 0);
+                ctx.scale(ratio, ratio);
+                return { ctx, size: displaySize };
+            }
+
+            function drawWheel() {
+                const view = getWheelCanvasContext();
+                if (!view) return;
+                const { ctx, size } = view;
+                const radius = size / 2 - 8;
+                const cx = size / 2,
+                    cy = size / 2;
+                ctx.clearRect(0, 0, size, size);
+
+                if (wheelState.items.length === 0) {
+                    ctx.beginPath();
+                    ctx.arc(cx, cy, radius, 0, Math.PI * 2);
+                    ctx.fillStyle = "#f3ecd6";
+                    ctx.fill();
+                    ctx.strokeStyle = "#e0d2b0";
+                    ctx.lineWidth = 2;
+                    ctx.stroke();
+                    ctx.fillStyle = "#8a7757";
+                    ctx.font = "600 16px Prompt";
+                    ctx.textAlign = "center";
+                    ctx.textBaseline = "middle";
+                    ctx.fillText("ยังไม่มีผู้มีสิทธิ์ลุ้น", cx, cy);
+                    return;
+                }
+
+                const segment = (Math.PI * 2) / wheelState.items.length;
+                wheelState.items.forEach((item, index) => {
+                    const start = wheelState.angle + segment * index;
+                    const end = start + segment;
+                    ctx.beginPath();
+                    ctx.moveTo(cx, cy);
+                    ctx.arc(cx, cy, radius, start, end);
+                    ctx.closePath();
+                    ctx.fillStyle = item.color;
+                    ctx.fill();
+                    ctx.strokeStyle = "rgba(58, 44, 26, 0.18)";
+                    ctx.lineWidth = 1;
+                    ctx.stroke();
+
+                    const textAngle = start + segment / 2;
+                    ctx.save();
+                    ctx.translate(cx, cy);
+                    ctx.rotate(textAngle);
+                    ctx.textAlign = "right";
+                    ctx.textBaseline = "middle";
+                    ctx.fillStyle = "#3a2c1a";
+                    ctx.font = "600 11px Prompt";
+                    const text = item.label.length > 26 ? `${item.label.slice(0, 25)}…` : item.label;
+                    ctx.fillText(text, radius - 12, 0);
+                    ctx.restore();
+                });
+
+                ctx.beginPath();
+                ctx.arc(cx, cy, radius, 0, Math.PI * 2);
+                ctx.strokeStyle = "#d4a73a";
+                ctx.lineWidth = 3;
+                ctx.stroke();
+            }
+
+            function easeOutCubic(t) {
+                return 1 - Math.pow(1 - t, 3);
+            }
+
+            function spinWheel() {
+                if (wheelState.spinning) return;
+                if (pendingRandomWinner) {
+                    toast("กรุณายืนยันผู้โชคดีก่อน");
+                    return;
+                }
+                if (wheelState.items.length === 0) {
+                    toast("ยังไม่มีผู้มีสิทธิ์ลุ้น");
+                    return;
+                }
+
+                const spinBtn = document.getElementById("spinWheelBtn");
+                const result = document.getElementById("wheelResult");
+                const count = wheelState.items.length;
+                const segment = (Math.PI * 2) / count;
+                const winnerIndex = Math.floor(Math.random() * count);
+                const current = wheelState.angle;
+                const finalBase = -Math.PI / 2 - (winnerIndex + 0.5) * segment;
+                let target = finalBase;
+                const minSpin = Math.PI * 10;
+                while (target < current + minSpin) target += Math.PI * 2;
+
+                const duration = 4200;
+                const start = performance.now();
+                wheelState.spinning = true;
+                if (spinBtn) spinBtn.disabled = true;
+                if (result) {
+                    result.className = "result";
+                    result.innerHTML = '<div class="result-label">กำลังหมุน...</div><div class="result-name">ลุ้นผู้โชคดี</div>';
+                }
+
+                const tick = (now) => {
+                    const progress = Math.min(1, (now - start) / duration);
+                    const eased = easeOutCubic(progress);
+                    wheelState.angle = current + (target - current) * eased;
+                    drawWheel();
+                    if (progress < 1) {
+                        wheelState.animationFrame = requestAnimationFrame(tick);
+                        return;
+                    }
+                    wheelState.spinning = false;
+                    if (spinBtn) spinBtn.disabled = false;
+                    const winner = wheelState.items[winnerIndex]?.person;
+                    if (winner && result) {
+                        result.className = "result show";
+                        result.innerHTML = `<div class="result-label">🎉 ผู้โชคดีจากวงล้อ</div><div class="result-name">${formatWheelLabel(winner)}</div>`;
+                        openRandomModal(winner);
+                    }
+                };
+                wheelState.animationFrame = requestAnimationFrame(tick);
+            }
+
+            // ============ TREE ============
+            function fullName(node) {
+                return `${node.title || ""} ${node.firstname || ""} ${node.lastname || ""}`.trim();
+            }
+
+            function buildIndexes(data) {
+                const byId = new Map(data.map((p) => [p.id, p]));
+                const childrenByParent = new Map();
+                const spouseMap = new Map();
+                data.forEach((p) => {
+                    if (p.parent_id) {
+                        if (!childrenByParent.has(p.parent_id)) childrenByParent.set(p.parent_id, []);
+                        childrenByParent.get(p.parent_id).push(p);
+                    }
+                    if (p.spouse_of) {
+                        if (!spouseMap.has(p.id)) spouseMap.set(p.id, new Set());
+                        if (!spouseMap.has(p.spouse_of)) spouseMap.set(p.spouse_of, new Set());
+                        spouseMap.get(p.id).add(p.spouse_of);
+                        spouseMap.get(p.spouse_of).add(p.id);
+                    }
+                });
+                return { byId, childrenByParent, spouseMap };
+            }
+
+            function getSpouses(person, indexes) {
+                const ids = indexes.spouseMap.get(person.id);
+                if (!ids || ids.size === 0) return [];
+                return Array.from(ids)
+                    .map((id) => indexes.byId.get(id))
+                    .filter(Boolean)
+                    .sort((a, b) => a.id - b.id);
+            }
+            function getSpouse(person, indexes) {
+                return getSpouses(person, indexes)[0] || null;
+            }
+
+            function initials(node) {
+                const f = (node.firstname || "").trim();
+                const l = (node.lastname || "").trim();
+                return ((f[0] || "") + (l[0] || "")).toUpperCase() || "👤";
+            }
+
+            function parseGenerationNumber(person) {
+                const m = String(person.generation || "").match(/\d+/);
+                return m ? Number(m[0]) : null;
+            }
+
+            function inferGenerationByParent(person, indexes, memo = new Map()) {
+                if (memo.has(person.id)) return memo.get(person.id);
+                const explicit = parseGenerationNumber(person);
+                if (explicit !== null) {
+                    memo.set(person.id, explicit);
+                    return explicit;
+                }
+                if (!person.parent_id) {
+                    memo.set(person.id, 1);
+                    return 1;
+                }
+                const parent = indexes.byId.get(person.parent_id);
+                if (!parent) {
+                    memo.set(person.id, 1);
+                    return 1;
+                }
+                const level = inferGenerationByParent(parent, indexes, memo) + 1;
+                memo.set(person.id, level);
+                return level;
+            }
+
+            function getParentRelationText(person, indexes) {
+                if (!person.parent_id) return "";
+                const parent = indexes.byId.get(person.parent_id);
+                if (!parent) return "";
+                const ps = getSpouse(parent, indexes);
+                if (ps) return `ลูกของ ${fullName(parent)} กับ ${fullName(ps)}`;
+                return `ลูกของ ${fullName(parent)}`;
+            }
+
+            function buildFamilyGroups(indexes, sourceData) {
+                const graph = new Map(sourceData.map((p) => [p.id, new Set()]));
+                const connect = (a, b) => {
+                    if (!graph.has(a) || !graph.has(b)) return;
+                    graph.get(a).add(b);
+                    graph.get(b).add(a);
+                };
+                sourceData.forEach((p) => {
+                    if (p.parent_id && indexes.byId.has(p.parent_id)) connect(p.id, p.parent_id);
+                    if (p.spouse_of && indexes.byId.has(p.spouse_of)) connect(p.id, p.spouse_of);
+                });
+                const visited = new Set();
+                const groups = [];
+                sourceData.forEach((person) => {
+                    if (visited.has(person.id)) return;
+                    const stack = [person.id],
+                        ids = [];
+                    visited.add(person.id);
+                    while (stack.length) {
+                        const cur = stack.pop();
+                        ids.push(cur);
+                        graph.get(cur).forEach((n) => {
+                            if (!visited.has(n)) {
+                                visited.add(n);
+                                stack.push(n);
+                            }
+                        });
+                    }
+                    const members = ids
+                        .map((id) => indexes.byId.get(id))
+                        .filter(Boolean)
+                        .sort((a, b) => a.id - b.id);
+                    groups.push(members);
+                });
+                groups.sort((a, b) => (a[0]?.id || 0) - (b[0]?.id || 0));
+                return groups;
+            }
+
+            function getClusterTitle(group, indexes) {
+                const ids = new Set(group.map((p) => p.id));
+                const ancestors = group.filter((p) => !p.parent_id || !ids.has(p.parent_id)).sort((a, b) => a.id - b.id);
+                if (ancestors.length === 0) return "ครอบครัว";
+                const first = ancestors[0];
+                const sp = getSpouse(first, indexes);
+                if (sp && ids.has(sp.id)) return `${fullName(first)} ❤ ${fullName(sp)}`;
+                return fullName(first);
+            }
+
+            function createPersonCard(node, relationText = "", opts = {}) {
+                const card = document.createElement("div");
+                card.className = "card" + (node.attend ? " attended" : "");
+                card.dataset.personId = String(node.id);
+                if (opts.fullWidth) {
+                    card.style.maxWidth = "none";
+                    card.style.width = "100%";
+                }
+
+                const statusChip = node.attend
+                    ? `<span class="chip attend">✓ มาร่วมงาน${node.checkin_time ? " • " + node.checkin_time : ""}</span>`
+                    : `<span class="chip not">○ ยังไม่มา</span>`;
+
+                const donationChip =
+                    node.donation_amount > 0
+                        ? `<span class="chip donation">💰 ${Number(node.donation_amount).toLocaleString()} ฿ ${node.donation_method === "transfer" ? "📱" : "💵"}</span>`
+                        : "";
+
+                const familyChip = opts.showFamily && node.family_line ? `<span class="chip family">🌿 สาย ${node.family_line}</span>` : "";
+                const treeShortcut = opts.showTreeShortcut
+                    ? `<button class="card-tree-link" type="button" title="ไปที่แผนผัง" onclick="goToTreeFromSearch(${node.id})">🌳</button>`
+                    : "";
+                const topClass = opts.showTreeShortcut ? "card-top with-tree-link" : "card-top";
+
+                card.innerHTML = `
+                    ${treeShortcut}
+                    <div class="${topClass}">
+                        <div class="avatar ${node.attend ? "attended" : ""}">${initials(node)}</div>
+                        <div class="card-info">
+                            <div class="name">${node.firstname || ""} ${node.lastname || ""}</div>
+                            <div class="meta">
+                                ${statusChip}
+                                ${donationChip}
+                                ${familyChip}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-actions">
+                        ${
+                            node.attend
+                                ? '<button class="btn-secondary" disabled style="opacity:.6">✓ เช็คอินแล้ว</button>'
+                                : `<button class="btn-primary" onclick="checkin(${node.id})">✔ เช็คอิน</button>`
+                        }
+                        <button class="btn-secondary" onclick="openDonate(${node.id})">💰 บริจาค</button>
+                        <div class="add-menu">
+                            <button class="btn-secondary add-menu-toggle" type="button" onclick="toggleAddMenu(event, ${node.id})">➕</button>
+                            <div class="add-menu-list" id="addMenu-${node.id}">
+                                <button class="btn-secondary add-menu-item" type="button" onclick="openAddMemberFromCard(${node.id}, 'spouse')">💍 คู่สมรส</button>
+                                <button class="btn-secondary add-menu-item" type="button" onclick="openAddMemberFromCard(${node.id}, 'child')">👶 บุตร</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                if (relationText) {
+                    const r = document.createElement("div");
+                    r.className = "relation";
+                    r.textContent = relationText;
+                    card.appendChild(r);
+                }
+                return card;
+            }
+
+            function getCardElementById(id, container) {
+                return container.querySelector(`.card[data-person-id="${id}"]`);
+            }
+            function getAnchorPoint(cardEl, treeRect, side) {
+                const rect = cardEl.getBoundingClientRect();
+                const container = document.getElementById("tree");
+                const x = rect.left - treeRect.left + container.scrollLeft + rect.width / 2;
+                const y = (side === "top" ? rect.top - treeRect.top : rect.bottom - treeRect.top) + container.scrollTop;
+                return { x, y };
+            }
+
+            function drawTreeLinks(indexes, sourceData) {
+                const container = document.getElementById("tree");
+                const old = container.querySelector(".tree-lines");
+                if (old) old.remove();
+                const width = container.scrollWidth;
+                const height = container.scrollHeight;
+                if (!width || !height) return;
+                const svgNS = "http://www.w3.org/2000/svg";
+                const svg = document.createElementNS(svgNS, "svg");
+                svg.setAttribute("class", "tree-lines");
+                svg.setAttribute("width", String(width));
+                svg.setAttribute("height", String(height));
+                svg.setAttribute("viewBox", `0 0 ${width} ${height}`);
+                svg.style.width = `${width}px`;
+                svg.style.height = `${height}px`;
+
+                const treeRect = container.getBoundingClientRect();
+                const pairSeen = new Set();
+                const spouseAnchor = new Map();
+
+                sourceData.forEach((person) => {
+                    getSpouses(person, indexes).forEach((spouse) => {
+                        const low = Math.min(person.id, spouse.id);
+                        const high = Math.max(person.id, spouse.id);
+                        const key = `${low}-${high}`;
+                        if (pairSeen.has(key)) return;
+                        const first = getCardElementById(low, container);
+                        const second = getCardElementById(high, container);
+                        if (!first || !second) return;
+                        const a = getAnchorPoint(first, treeRect, "bottom");
+                        const b = getAnchorPoint(second, treeRect, "bottom");
+                        const y = Math.max(a.y, b.y) + 6;
+                        const x1 = Math.min(a.x, b.x);
+                        const x2 = Math.max(a.x, b.x);
+                        const sp = document.createElementNS(svgNS, "path");
+                        sp.setAttribute("class", "spouse-link");
+                        sp.setAttribute("d", `M ${x1} ${y} L ${x2} ${y}`);
+                        svg.appendChild(sp);
+                        const anchor = { x: (x1 + x2) / 2, y };
+                        if (!spouseAnchor.has(low)) spouseAnchor.set(low, []);
+                        if (!spouseAnchor.has(high)) spouseAnchor.set(high, []);
+                        spouseAnchor.get(low).push(anchor);
+                        spouseAnchor.get(high).push(anchor);
+                        pairSeen.add(key);
+                    });
+                });
+
+                sourceData.forEach((child) => {
+                    if (!child.parent_id) return;
+                    const childCard = getCardElementById(child.id, container);
+                    const parent = indexes.byId.get(child.parent_id);
+                    if (!childCard || !parent) return;
+                    const parentCard = getCardElementById(parent.id, container);
+                    if (!parentCard) return;
+                    const childTop = getAnchorPoint(childCard, treeRect, "top");
+                    const cands = spouseAnchor.get(parent.id) || [];
+                    let parentAnchor = getAnchorPoint(parentCard, treeRect, "bottom");
+                    if (cands.length === 1) parentAnchor = cands[0];
+                    const startY = parentAnchor.y + 2;
+                    const midY = startY + Math.max(16, (childTop.y - startY) * 0.45);
+                    const link = document.createElementNS(svgNS, "path");
+                    link.setAttribute(
+                        "d",
+                        `M ${parentAnchor.x} ${startY} L ${parentAnchor.x} ${midY} L ${childTop.x} ${midY} L ${childTop.x} ${childTop.y}`,
+                    );
+                    svg.appendChild(link);
+                });
+
+                container.prepend(svg);
+            }
+
+            function draw() {
+                const visibleData = getVisibleData();
+                const indexes = buildIndexes(visibleData);
+                const container = document.getElementById("tree");
+                container.innerHTML = "";
+                if (visibleData.length === 0) {
+                    container.innerHTML = '<div class="loading">ยังไม่มีข้อมูลสมาชิก</div>';
+                    return;
+                }
+
+                const groups = buildFamilyGroups(indexes, visibleData);
+                const generationMemo = new Map();
+                groups.forEach((group) => {
+                    const cluster = document.createElement("div");
+                    cluster.className = "family-cluster";
+                    const title = document.createElement("div");
+                    title.className = "cluster-title";
+                    title.textContent = `ครอบครัว: ${getClusterTitle(group, indexes)}`;
+                    cluster.appendChild(title);
+
+                    const rows = new Map();
+                    group.forEach((p) => {
+                        const lvl = inferGenerationByParent(p, indexes, generationMemo);
+                        if (!rows.has(lvl)) rows.set(lvl, []);
+                        rows.get(lvl).push(p);
+                    });
+                    const levels = Array.from(rows.keys()).sort((a, b) => a - b);
+                    levels.forEach((lvl) => {
+                        const row = document.createElement("div");
+                        row.className = "generation-row";
+                        const t = document.createElement("div");
+                        t.className = "generation-title";
+                        t.textContent = `รุ่น ${lvl}`;
+                        row.appendChild(t);
+                        const members = document.createElement("div");
+                        members.className = "generation-members";
+                        const groupIds = new Set(group.map((p) => p.id));
+                        const rendered = new Set();
+                        const list = rows.get(lvl).sort((a, b) => a.id - b.id);
+                        list.forEach((person) => {
+                            if (rendered.has(person.id)) return;
+                            const spouses = getSpouses(person, indexes);
+                            const spouse = spouses.find(
+                                (s) =>
+                                    groupIds.has(s.id) &&
+                                    inferGenerationByParent(s, indexes, generationMemo) === lvl &&
+                                    !rendered.has(s.id),
+                            );
+                            const personRel = getParentRelationText(person, indexes);
+                            if (spouse && !rendered.has(spouse.id)) {
+                                const spouseRel = getParentRelationText(spouse, indexes);
+                                const couple = document.createElement("div");
+                                couple.className = "couple";
+                                couple.appendChild(createPersonCard(person, personRel));
+                                const heart = document.createElement("div");
+                                heart.className = "love-heart";
+                                heart.textContent = "❤";
+                                couple.appendChild(heart);
+                                couple.appendChild(createPersonCard(spouse, spouseRel));
+                                members.appendChild(couple);
+                                rendered.add(person.id);
+                                rendered.add(spouse.id);
+                                return;
+                            }
+                            members.appendChild(createPersonCard(person, personRel));
+                            rendered.add(person.id);
+                        });
+                        row.appendChild(members);
+                        cluster.appendChild(row);
+                    });
+                    container.appendChild(cluster);
+                });
+
+                drawTreeLinks(indexes, visibleData);
+            }
+
+            // ============ CHECKIN ============
+            async function checkin(id) {
+                const time = new Date().toLocaleTimeString("th-TH", { hour: "2-digit", minute: "2-digit" });
+                toast("กำลังเช็คอิน...");
+                try {
+                    await fetch(`${API_URL}/id/${id}`, {
+                        method: "PATCH",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ data: { attend: "TRUE", checkin_time: time } }),
+                    });
+                    toast("✓ เช็คอินสำเร็จ");
+                    await loadData();
+                } catch {
+                    toast("❌ เช็คอินไม่สำเร็จ");
+                }
+            }
+
+            // ============ DONATE ============
+            function openDonate(id) {
+                currentDonateId = id;
+                donateMethod = "";
+                document.getElementById("donateAmount").value = "";
+                document.getElementById("donateAmountStep").classList.remove("active");
+                document.getElementById("donateMethodStep").classList.add("active");
+                document.getElementById("donateSubmitBtn").style.display = "none";
+                document.getElementById("donateQrField").style.display = "none";
+                document.getElementById("donateQrImage").removeAttribute("src");
+                document.getElementById("donateQrNote").textContent = "กำลังเตรียม QR สำหรับโอนเงิน";
+                document.getElementById("donateModal").classList.add("show");
+            }
+
+            function loadDonateQrImage() {
+                const image = document.getElementById("donateQrImage");
+                const note = document.getElementById("donateQrNote");
+                if (!image || !note) return;
+
+                const rawBase64 = String(DONATE_QR_IMAGE_BASE64).trim();
+                const rawUrl = String(DONATE_QR_IMAGE_URL).trim();
+                let src = rawBase64 ? normalizeDonateQrSource(rawBase64) : normalizeDonateQrSource(rawUrl);
+
+                if (!src) {
+                    note.textContent = "กำลังดึง QR จากชีต 2 ช่อง A1...";
+                    image.style.display = "none";
+                    fetchDonateQrSourceFromSheet().then((sheetSrc) => {
+                        if (!sheetSrc) {
+                            note.textContent = "ดึง QR จากชีต 2 ช่อง A1 ไม่สำเร็จ";
+                            return;
+                        }
+                        image.style.display = "block";
+                        image.src = sheetSrc;
+                        note.textContent = "สแกน QR แล้วค่อยกรอกจำนวนเงินด้านล่าง";
+                        image.onerror = () => {
+                            note.textContent = "โหลด QR ไม่สำเร็จ ตรวจสอบค่า base64 ในชีต 2 ช่อง A1";
+                            image.style.display = "none";
+                        };
+                    });
+                    return;
+                }
+
+                image.style.display = "block";
+                image.src = src;
+                note.textContent = "สแกน QR แล้วค่อยกรอกจำนวนเงินด้านล่าง";
+                image.onerror = () => {
+                    note.textContent = rawBase64
+                        ? "โหลด QR base64 ไม่สำเร็จ ตรวจสอบข้อมูลจากชีต 2 ช่อง A1"
+                        : "โหลด QR ไม่สำเร็จ ตรวจสอบ URL จากชีต 2 ช่อง A1";
+                    image.style.display = "none";
+                };
+            }
+
+            function selectDonateMethod(method) {
+                donateMethod = method;
+                document.getElementById("donateMethodStep").classList.remove("active");
+                document.getElementById("donateAmountStep").classList.add("active");
+                document.getElementById("donateSubmitBtn").style.display = "inline-flex";
+
+                const qrField = document.getElementById("donateQrField");
+                if (method === "transfer") {
+                    qrField.style.display = "block";
+                    loadDonateQrImage();
+                    setTimeout(() => document.getElementById("donateAmount").focus(), 100);
+                } else {
+                    qrField.style.display = "none";
+                    setTimeout(() => document.getElementById("donateAmount").focus(), 100);
+                }
+            }
+
+            function parseGenerationValue(value) {
+                const m = String(value ?? "").match(/\d+/);
+                return m ? Number(m[0]) : null;
+            }
+
+            function nextGenerationFrom(parentGeneration) {
+                const n = parseGenerationValue(parentGeneration);
+                if (n === null) return "";
+                const src = String(parentGeneration ?? "").trim();
+                if (!src) return String(n + 1);
+                if (/\d+/.test(src)) return src.replace(/\d+/, String(n + 1));
+                return String(n + 1);
+            }
+
+            function escapeRegExp(text) {
+                return text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+            }
+
+            function getNextSpouseCode(baseCode) {
+                const base = String(baseCode ?? "").trim();
+                if (!base) return "";
+                const existing = new Set(data.map((p) => String(p.code ?? "").trim()).filter(Boolean));
+                let idx = 1;
+                let candidate = `${base}/${idx}`;
+                while (existing.has(candidate)) {
+                    idx += 1;
+                    candidate = `${base}/${idx}`;
+                }
+                return candidate;
+            }
+
+            function getNextChildCode(parentCode) {
+                const base = String(parentCode ?? "").trim();
+                if (!base) return "";
+                const pattern = new RegExp(`^${escapeRegExp(base)}\\.(\\d+)$`);
+                let max = 0;
+                data.forEach((p) => {
+                    const code = String(p.code ?? "").trim();
+                    const m = code.match(pattern);
+                    if (m) max = Math.max(max, Number(m[1]) || 0);
+                });
+                return `${base}.${max + 1}`;
+            }
+
+            function getAddMemberDerivedFields(mode, anchorPerson) {
+                if (!anchorPerson) {
+                    return {
+                        familyLine: "",
+                        generation: "",
+                        parentId: "",
+                        spouseOf: "",
+                        code: "",
+                    };
+                }
+
+                if (mode === "spouse") {
+                    return {
+                        familyLine: String(anchorPerson.family_line ?? "").trim(),
+                        generation: String(anchorPerson.generation ?? "").trim(),
+                        parentId: "",
+                        spouseOf: String(anchorPerson.id),
+                        code: getNextSpouseCode(anchorPerson.code),
+                    };
+                }
+
+                if (mode === "child") {
+                    return {
+                        familyLine: String(anchorPerson.family_line ?? "").trim(),
+                        generation: nextGenerationFrom(anchorPerson.generation),
+                        parentId: String(anchorPerson.id),
+                        spouseOf: "",
+                        code: getNextChildCode(anchorPerson.code),
+                    };
+                }
+
+                return {
+                    familyLine: "",
+                    generation: "",
+                    parentId: "",
+                    spouseOf: "",
+                    code: "",
+                };
+            }
+
+            function setAddMemberFieldMode(isLocked) {
+                const ids = ["addFamilyLine", "addGeneration", "addParentId", "addSpouseOf", "addCode"];
+                ids.forEach((id) => {
+                    const el = document.getElementById(id);
+                    if (!el) return;
+                    el.readOnly = isLocked;
+                    if (isLocked) {
+                        el.setAttribute("aria-readonly", "true");
+                    } else {
+                        el.removeAttribute("aria-readonly");
+                    }
+                });
+            }
+
+            function openAddMember(mode = "manual", anchorId = null) {
+                addMemberMode = mode;
+                addMemberAnchorId = anchorId;
+
+                document.getElementById("addFirstname").value = "";
+                document.getElementById("addLastname").value = "";
+                document.getElementById("addTitle").value = "";
+                document.getElementById("addFamilyLine").value = "";
+                document.getElementById("addGeneration").value = "";
+                document.getElementById("addCode").value = "";
+                document.getElementById("addParentId").value = "";
+                document.getElementById("addSpouseOf").value = "";
+
+                const titleEl = document.getElementById("addMemberTitle");
+                if (titleEl) {
+                    if (mode === "spouse") titleEl.textContent = "💍 เพิ่มคู่สมรส";
+                    else if (mode === "child") titleEl.textContent = "👶 เพิ่มลูก";
+                    else titleEl.textContent = "👤 เพิ่มสมาชิก";
+                }
+
+                if (mode === "spouse" || mode === "child") {
+                    const anchor = data.find((p) => Number(p.id) === Number(anchorId));
+                    if (!anchor) {
+                        toast("ไม่พบข้อมูลการ์ดต้นทาง");
+                        return;
+                    }
+                    const derived = getAddMemberDerivedFields(mode, anchor);
+                    document.getElementById("addFamilyLine").value = derived.familyLine;
+                    document.getElementById("addGeneration").value = derived.generation;
+                    document.getElementById("addCode").value = derived.code;
+                    document.getElementById("addParentId").value = derived.parentId;
+                    document.getElementById("addSpouseOf").value = derived.spouseOf;
+                    setAddMemberFieldMode(true);
+                } else {
+                    setAddMemberFieldMode(false);
+                }
+
+                document.getElementById("addMemberModal").classList.add("show");
+                setTimeout(() => document.getElementById("addFirstname").focus(), 100);
+            }
+
+            function openAddMemberFromCard(anchorId, mode) {
+                closeAllAddMenus();
+                openAddMember(mode, anchorId);
+            }
+
+            function goToTreeFromSearch(personId) {
+                const person = data.find((p) => Number(p.id) === Number(personId));
+                if (!person) {
+                    switchPage("pageTree");
+                    return;
+                }
+
+                const line = String(person.family_line ?? "").trim();
+                activeFamilyLine = line || "all";
+                renderFamilyTabs();
+                updateStats();
+                refreshRandomViews();
+                switchPage("pageTree");
+
+                setTimeout(() => {
+                    const targetCard = document.querySelector(`#tree .card[data-person-id="${personId}"]`);
+                    if (!targetCard) return;
+                    targetCard.scrollIntoView({ behavior: "smooth", block: "center", inline: "center" });
+                    targetCard.classList.add("jump-focus");
+                    setTimeout(() => targetCard.classList.remove("jump-focus"), 1400);
+                }, 240);
+            }
+
+            function closeAllAddMenus() {
+                document.querySelectorAll(".add-menu-list.show").forEach((menu) => menu.classList.remove("show"));
+            }
+
+            function toggleAddMenu(event, personId) {
+                event.stopPropagation();
+                const target = document.getElementById(`addMenu-${personId}`);
+                const willShow = !target?.classList.contains("show");
+                closeAllAddMenus();
+                if (willShow) target?.classList.add("show");
+            }
+
+            function closeAddMember() {
+                document.getElementById("addMemberModal").classList.remove("show");
+                addMemberMode = "manual";
+                addMemberAnchorId = null;
+            }
+
+            function getNextMemberId() {
+                const maxId = data.reduce((m, p) => Math.max(m, Number(p.id) || 0), 0);
+                return maxId + 1;
+            }
+
+            async function submitAddMember() {
+                const firstname = document.getElementById("addFirstname").value.trim();
+                const lastname = document.getElementById("addLastname").value.trim();
+                const title = document.getElementById("addTitle").value.trim();
+                let familyLine = document.getElementById("addFamilyLine").value.trim();
+                let generation = document.getElementById("addGeneration").value.trim();
+                let code = document.getElementById("addCode").value.trim();
+                let parentId = document.getElementById("addParentId").value.trim();
+                let spouseOf = document.getElementById("addSpouseOf").value.trim();
+
+                if (!firstname || !lastname) {
+                    toast("กรุณากรอกชื่อและนามสกุล");
+                    return;
+                }
+
+                if (addMemberMode === "spouse" || addMemberMode === "child") {
+                    const anchor = data.find((p) => Number(p.id) === Number(addMemberAnchorId));
+                    if (!anchor) {
+                        toast("ไม่พบข้อมูลต้นทางสำหรับเพิ่มสมาชิก");
+                        return;
+                    }
+                    const derived = getAddMemberDerivedFields(addMemberMode, anchor);
+                    familyLine = derived.familyLine;
+                    generation = derived.generation;
+                    parentId = derived.parentId;
+                    spouseOf = derived.spouseOf;
+                    code = derived.code;
+                }
+
+                const payload = {
+                    id: String(getNextMemberId()),
+                    title,
+                    firstname,
+                    lastname,
+                    family_line: familyLine,
+                    generation,
+                    code,
+                    parent_id: parentId,
+                    spouse_of: spouseOf,
+                    attend: "",
+                    checkin_time: "",
+                    donation_amount: "",
+                    donation_method: "",
+                    random_drawn: "",
+                };
+
+                toast("กำลังเพิ่มสมาชิก...");
+                try {
+                    const response = await fetch(API_URL, {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ data: [payload] }),
+                    });
+                    if (!response.ok) {
+                        throw new Error("failed to create member");
+                    }
+                    closeAddMember();
+                    toast("เพิ่มสมาชิกเรียบร้อย");
+                    await loadData();
+                } catch {
+                    toast("เพิ่มสมาชิกไม่สำเร็จ");
+                }
+            }
+
+            function closeDonate() {
+                document.getElementById("donateModal").classList.remove("show");
+                currentDonateId = null;
+            }
+            async function submitDonate() {
+                const amount = document.getElementById("donateAmount").value;
+                const method = donateMethod;
+                if (!method) {
+                    toast("กรุณาเลือกวิธีการบริจาค");
+                    return;
+                }
+                if (!amount || Number(amount) <= 0) {
+                    toast("กรุณากรอกจำนวนเงิน");
+                    return;
+                }
+                const id = currentDonateId;
+                closeDonate();
+                toast("กำลังบันทึก...");
+                try {
+                    await fetch(`${API_URL}/id/${id}`, {
+                        method: "PATCH",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ data: { donation_amount: amount, donation_method: method } }),
+                    });
+                    toast("✓ บันทึกเรียบร้อย");
+                    await loadData();
+                } catch {
+                    toast("❌ บันทึกไม่สำเร็จ");
+                }
+            }
+            document.getElementById("donateModal").addEventListener("click", (e) => {
+                if (e.target.id === "donateModal") closeDonate();
+            });
+
+            document.getElementById("addMemberModal").addEventListener("click", (e) => {
+                if (e.target.id === "addMemberModal") closeAddMember();
+            });
+
+            document.getElementById("randomModal").addEventListener("click", (e) => {
+                if (e.target.id === "randomModal") closeRandomModal();
+            });
+
+            document.addEventListener("click", () => {
+                closeAllAddMenus();
+            });
+
+            async function toggleFullscreen() {
+                try {
+                    if (!document.fullscreenElement) {
+                        await document.documentElement.requestFullscreen();
+                        toast("เปิดโหมดเต็มจอแล้ว");
+                    } else {
+                        await document.exitFullscreen();
+                        toast("ออกจากโหมดเต็มจอแล้ว");
+                    }
+                } catch {
+                    toast("อุปกรณ์นี้ไม่รองรับโหมดเต็มจอ");
+                }
+                setTimeout(() => {
+                    if (data.length > 0 && activePage === "pageTree") draw();
+                }, 200);
+            }
+
+            window.addEventListener("resize", () => {
+                if (data.length > 0 && activePage === "pageTree") draw();
+                if (activePage === "pageRandom") drawWheel();
+            });
+
+            // ============ START ============
+            initBottomNav();
+            initSearchControls();
+            loadData();
+        </script>
+    </body>
+</html>
