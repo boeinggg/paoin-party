@@ -583,46 +583,46 @@
             }
 
             .add-menu-list {
+                position: fixed;
+                display: none;
+                flex-direction: column;
+                gap: 6px;
 
-    position: fixed;
+                min-width: 150px;
+                padding: 8px;
 
-    display: none;
+                background: #fffdf6;
+                border: 1px solid var(--border);
+                border-radius: 14px;
+                box-shadow: 0 18px 40px rgba(0, 0, 0, 0.18);
 
-    flex-direction: column;
+                z-index: 999999;
+            }
 
-    gap: 6px;
+            .add-menu-list.show {
+                display: flex;
+            }
 
-    min-width: 132px;
-
-    padding: 8px;
-
-    background: #fffdf6;
-
-    border: 1px solid var(--border);
-
-    border-radius: 12px;
-
-    box-shadow: var(--shadow-md);
-
-    z-index: 100000;
-
-}
-
-.add-menu-list.show {
-
-    display: flex;
-
-}
-
-.modal-overlay {
-
-    z-index: 99999;
-
-}
+            .modal-overlay {
+                z-index: 99999;
+            }
 
             .add-menu-item {
                 width: 100%;
                 justify-content: flex-start;
+            }
+
+            .form-grid-2 {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 12px;
+            }
+
+            @media (max-width: 540px) {
+                .form-grid-2 {
+                    grid-template-columns: 1fr 1fr;
+                    gap: 10px;
+                }
             }
 
             /* ===== BUTTONS ===== */
@@ -1224,6 +1224,36 @@
                 background: linear-gradient(135deg, var(--accent), var(--accent-glow));
                 box-shadow: 0 4px 12px rgba(212, 167, 58, 0.35);
             }
+            .site-credit {
+                text-align: center;
+
+                margin-top: 40px;
+                padding: 20px 12px 120px;
+
+                font-size: 13px;
+                color: var(--text-soft);
+
+                opacity: 0.9;
+            }
+
+            .site-credit strong {
+                display: block;
+
+                margin-top: 4px;
+
+                font-size: 15px;
+                color: var(--primary);
+                font-weight: 700;
+            }
+
+            .credit-detail {
+                display: block;
+
+                margin-top: 2px;
+
+                font-size: 12px;
+                color: var(--muted);
+            }
 
             /* mobile */
             @media (max-width: 540px) {
@@ -1577,37 +1607,51 @@
         <div class="modal-overlay" id="editMemberModal">
             <div class="modal">
                 <h3>✏️ แก้ไขข้อมูลสมาชิก</h3>
-                <div class="field">
-                    <label>คำนำหน้า</label>
-                    <input type="text" id="editTitle" list="titleOptions" placeholder="เช่น นาย" />
-                </div>
-                <div class="field">
-                    <label>ชื่อ</label>
-                    <input type="text" id="editFirstname" placeholder="เช่น สมชาย" />
-                </div>
-                <div class="field">
-                    <label>นามสกุล</label>
-                    <input type="text" id="editLastname" placeholder="เช่น ใจดี" />
-                </div>
-                <div class="field">
-                    <label>สายครอบครัว</label>
-                    <input type="text" id="editFamilyLine" placeholder="เช่น 2" />
-                </div>
-                <div class="field">
-                    <label>รุ่น</label>
-                    <input type="text" id="editGeneration" placeholder="เช่น 4" />
-                </div>
-                <div class="field">
-                    <label>โค้ด</label>
-                    <input type="text" id="editCode" placeholder="เช่น P.1.2.1" />
-                </div>
-                <div class="field">
-                    <label>รหัสพ่อ/แม่ (ถ้ามี)</label>
-                    <input type="number" id="editParentId" placeholder="เช่น 101" min="1" />
-                </div>
-                <div class="field">
-                    <label>รหัสคู่สมรส (ถ้ามี)</label>
-                    <input type="number" id="editSpouseOf" placeholder="เช่น 102" min="1" />
+                <div class="form-grid-2">
+                    <div class="field">
+                        <label>คำนำหน้า</label>
+                        <input type="text" id="editTitle" list="titleOptions" placeholder="เช่น นาย" />
+                    </div>
+
+                    <div class="field">
+                        <label>ชื่อเล่น</label>
+                        <input type="text" id="editNickname" placeholder="เช่น ยุรา" />
+                    </div>
+
+                    <div class="field">
+                        <label>ชื่อ</label>
+                        <input type="text" id="editFirstname" placeholder="เช่น สมชาย" />
+                    </div>
+
+                    <div class="field">
+                        <label>นามสกุล</label>
+                        <input type="text" id="editLastname" placeholder="เช่น ใจดี" />
+                    </div>
+
+                    <div class="field">
+                        <label>สายครอบครัว</label>
+                        <input type="text" id="editFamilyLine" placeholder="เช่น 2" />
+                    </div>
+
+                    <div class="field">
+                        <label>รุ่น</label>
+                        <input type="text" id="editGeneration" placeholder="เช่น 4" />
+                    </div>
+
+                    <div class="field">
+                        <label>โค้ด</label>
+                        <input type="text" id="editCode" placeholder="เช่น P.1.2.1" />
+                    </div>
+
+                    <div class="field">
+                        <label>รหัสพ่อ/แม่</label>
+                        <input type="number" id="editParentId" placeholder="เช่น 101" min="1" />
+                    </div>
+
+                    <div class="field">
+                        <label>รหัสคู่สมรส</label>
+                        <input type="number" id="editSpouseOf" placeholder="เช่น 102" min="1" />
+                    </div>
                 </div>
                 <div class="modal-actions">
                     <button class="btn-secondary" onclick="closeEditMember()">ยกเลิก</button>
@@ -2895,11 +2939,43 @@
             }
 
             function toggleAddMenu(event, personId) {
+                event.preventDefault();
                 event.stopPropagation();
-                const target = document.getElementById(`addMenu-${personId}`);
-                const willShow = !target?.classList.contains("show");
+
+                const btn = event.currentTarget;
+                const menu = document.getElementById(`addMenu-${personId}`);
+                if (!menu) return;
+
+                const isOpen = menu.classList.contains("show");
+
                 closeAllAddMenus();
-                if (willShow) target?.classList.add("show");
+
+                if (isOpen) return;
+
+                document.body.appendChild(menu);
+
+                menu.classList.add("show");
+
+                requestAnimationFrame(() => {
+                    const rect = btn.getBoundingClientRect();
+                    const menuRect = menu.getBoundingClientRect();
+
+                    let left = rect.right - menuRect.width;
+                    let top = rect.bottom + 8;
+
+                    if (left < 8) left = 8;
+
+                    if (left + menuRect.width > window.innerWidth - 8) {
+                        left = window.innerWidth - menuRect.width - 8;
+                    }
+
+                    if (top + menuRect.height > window.innerHeight - 8) {
+                        top = rect.top - menuRect.height - 8;
+                    }
+
+                    menu.style.left = `${left}px`;
+                    menu.style.top = `${top}px`;
+                });
             }
 
             function closeAddMember() {
@@ -2989,6 +3065,7 @@
                 document.getElementById("editTitle").value = person.title || "";
                 document.getElementById("editFirstname").value = person.firstname || "";
                 document.getElementById("editLastname").value = person.lastname || "";
+                document.getElementById("editNickname").value = person.nickname || "";
                 document.getElementById("editFamilyLine").value = person.family_line || "";
                 document.getElementById("editGeneration").value = person.generation || "";
                 document.getElementById("editCode").value = person.code || "";
@@ -3012,6 +3089,7 @@
 
                 const firstname = document.getElementById("editFirstname").value.trim();
                 const lastname = document.getElementById("editLastname").value.trim();
+                const nickname = document.getElementById("editNickname").value.trim();
                 const title = document.getElementById("editTitle").value.trim();
                 const familyLine = document.getElementById("editFamilyLine").value.trim();
                 const generation = document.getElementById("editGeneration").value.trim();
@@ -3029,6 +3107,7 @@
                     title,
                     firstname,
                     lastname,
+                    nickname,
                     family_line: familyLine,
                     generation,
                     code,
@@ -3108,8 +3187,10 @@
                 if (e.target.id === "attendSummaryModal") closeAttendSummary();
             });
 
-            document.addEventListener("click", () => {
-                closeAllAddMenus();
+            document.addEventListener("click", (e) => {
+                if (!e.target.closest(".add-menu-list") && !e.target.closest(".add-menu-toggle")) {
+                    closeAllAddMenus();
+                }
             });
 
             async function toggleFullscreen() {
@@ -3140,4 +3221,9 @@
             loadData();
         </script>
     </body>
+    <footer class="site-credit">
+        Developed by
+        <strong>เปรมสิณี เปาอินทร์ (โบ)</strong>
+        <span class="credit-detail">สาย 1 • รุ่น 5</span>
+    </footer>
 </html>
