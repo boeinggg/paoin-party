@@ -1255,6 +1255,68 @@
                 color: var(--muted);
             }
 
+            /* ===== SUMMARY TABLE ===== */
+            .summary-table-scroll {
+                overflow-x: auto;
+                border-radius: 14px;
+                border: 1px solid var(--border);
+            }
+            .summary-table {
+                width: 100%;
+                min-width: 640px;
+                border-collapse: collapse;
+                font-size: 13px;
+                background: #fff;
+            }
+            .summary-table th,
+            .summary-table td {
+                border: 1px solid var(--border);
+                padding: 9px 10px;
+                text-align: center;
+                white-space: nowrap;
+            }
+            .summary-table thead th {
+                background: var(--primary-soft);
+                color: var(--primary);
+                font-weight: 700;
+                position: sticky;
+                top: 0;
+            }
+            .summary-table thead .summary-subhead {
+                display: block;
+                font-size: 10px;
+                font-weight: 500;
+                color: var(--text-soft);
+                margin-top: 2px;
+            }
+            .summary-table .summary-line-cell {
+                text-align: left;
+                font-weight: 600;
+                color: var(--text);
+                white-space: nowrap;
+            }
+            .summary-table .summary-percent-cell {
+                font-weight: 700;
+                color: var(--warm);
+            }
+            .summary-table .summary-donation-cell {
+                color: #9a7820;
+                font-weight: 600;
+            }
+            .summary-table tbody tr:nth-child(even) {
+                background: rgba(250, 246, 236, 0.6);
+            }
+            .summary-total-row td {
+                background: var(--accent-soft) !important;
+                font-weight: 700;
+                color: var(--text);
+            }
+            .summary-note {
+                margin-top: 10px;
+                font-size: 12px;
+                color: var(--muted);
+            }
+
             /* mobile */
             @media (max-width: 540px) {
                 body {
@@ -1458,6 +1520,24 @@
                     </div>
                 </section>
             </div>
+
+            <!-- ====== PAGE 4 : SUMMARY ====== -->
+            <div class="page" id="pageSummary">
+                <section class="section">
+                    <div class="section-header">
+                        <h2>📊 สรุปผู้มาร่วมงานแยกตามสาย</h2>
+                        <span class="badge" id="summaryBadge">0 สาย</span>
+                    </div>
+                    <div class="section-help">สรุปจำนวนผู้ร่วมงานแยกตามสายและรุ่น พร้อมยอดบริจาครวมของแต่ละสาย</div>
+                    <div id="summaryTableWrap">
+                        <div class="loading">
+                            <div class="spinner"></div>
+                            <div>กำลังโหลดข้อมูล...</div>
+                        </div>
+                    </div>
+                    <div class="summary-note">* ตัวเลขในแต่ละรุ่นคือจำนวนผู้ที่เช็คอินมาร่วมงานแล้วของรุ่นนั้น ๆ</div>
+                </section>
+            </div>
         </div>
 
         <!-- ===== BOTTOM NAV ===== -->
@@ -1470,6 +1550,9 @@
             </button>
             <button class="nav-btn" data-page="pageRandom" data-style="gold" type="button">
                 <span class="nav-icon">🎲</span><span class="nav-label">สุ่ม</span>
+            </button>
+            <button class="nav-btn" data-page="pageSummary" type="button">
+                <span class="nav-icon">📊</span><span class="nav-label">สรุป</span>
             </button>
         </nav>
 
@@ -1805,6 +1888,9 @@
                 if (pageId === "pageSearch") {
                     setTimeout(() => document.getElementById("searchInput")?.focus(), 100);
                 }
+                if (pageId === "pageSummary") {
+                    setTimeout(() => renderSummaryTable(), 50);
+                }
             }
 
             function initBottomNav() {
@@ -1837,6 +1923,7 @@
                     updateStats();
                     refreshRandomViews();
                     renderSearchResults();
+                    renderSummaryTable();
                 } catch (e) {
                     document.getElementById("tree").innerHTML = '<div class="loading">😢 โหลดข้อมูลไม่สำเร็จ</div>';
                 }
@@ -2013,6 +2100,88 @@
                     };
                     container.appendChild(button);
                 });
+            }
+
+            // ============ SUMMARY PAGE ============
+            function buildSummaryData() {
+                const indexes = buildIndexes(data);
+                const memo = new Map();
+                const genSet = new Set();
+                data.forEach((p) => genSet.add(inferGenerationByParent(p, indexes, memo)));
+                const generations = Array.from(genSet).sort((a, b) => a - b);
+
+                const lineValues = getAllFamilyLineValues();
+                const rows = lineValues.map((lineValue) => {
+                    const members = data.filter((p) => String(p.family_line ?? "").trim() === lineValue);
+                    const byGen = {};
+                    generations.forEach((g) => (byGen[g] = 0));
+                    members.forEach((p) => {
+                        const g = inferGenerationByParent(p, indexes, memo);
+                        if (p.attend) byGen[g] = (byGen[g] || 0) + 1;
+                    });
+                    const total = members.length;
+                    const attend = members.filter((p) => p.attend).length;
+                    const percent = total ? (attend / total) * 100 : 0;
+                    const donation = members.reduce((s, p) => s + (Number(p.donation_amount) || 0), 0);
+                    return {
+                        lineValue,
+                        label: lineValue ? `สาย ${lineValue}` : "ไม่ระบุสาย",
+                        byGen,
+                        total,
+                        attend,
+                        percent,
+                        donation,
+                    };
+                });
+
+                const totals = { byGen: {}, total: 0, attend: 0, donation: 0 };
+                generations.forEach((g) => (totals.byGen[g] = 0));
+                rows.forEach((r) => {
+                    generations.forEach((g) => (totals.byGen[g] += r.byGen[g] || 0));
+                    totals.total += r.total;
+                    totals.attend += r.attend;
+                    totals.donation += r.donation;
+                });
+                totals.percent = totals.total ? (totals.attend / totals.total) * 100 : 0;
+
+                return { generations, rows, totals };
+            }
+
+            function renderSummaryTable() {
+                const wrap = document.getElementById("summaryTableWrap");
+                const badge = document.getElementById("summaryBadge");
+                if (!wrap) return;
+
+                if (data.length === 0) {
+                    wrap.innerHTML = '<div class="loading"><div class="spinner"></div><div>กำลังโหลดข้อมูล...</div></div>';
+                    return;
+                }
+
+                const { generations, rows, totals } = buildSummaryData();
+                if (badge) badge.textContent = `${rows.length} สาย`;
+
+                let html = '<div class="summary-table-scroll"><table class="summary-table"><thead><tr><th>สาย</th>';
+                generations.forEach((g) => {
+                    html += `<th>รุ่น ${g}<span class="summary-subhead">ร่วมงาน</span></th>`;
+                });
+                html += '<th>ทั้งหมด</th><th>ร่วมงาน</th><th>%</th><th>เงินบริจาค</th></tr></thead><tbody>';
+
+                rows.forEach((r) => {
+                    html += `<tr><td class="summary-line-cell">${r.label}</td>`;
+                    generations.forEach((g) => {
+                        html += `<td>${r.byGen[g] || 0}</td>`;
+                    });
+                    html += `<td>${r.total}</td><td>${r.attend}</td><td class="summary-percent-cell">${r.percent.toFixed(2)}</td><td class="summary-donation-cell">${r.donation ? r.donation.toLocaleString() : "-"}</td></tr>`;
+                });
+
+                html += '<tr class="summary-total-row"><td class="summary-line-cell">รวมทั้งหมด</td>';
+                generations.forEach((g) => {
+                    html += `<td>${totals.byGen[g] || 0}</td>`;
+                });
+                html += `<td>${totals.total}</td><td>${totals.attend}</td><td>${totals.percent.toFixed(2)}</td><td>${totals.donation.toLocaleString()}</td></tr>`;
+                html += "</tbody></table></div>";
+
+                wrap.innerHTML = html;
             }
 
             // ============ SEARCH ============
